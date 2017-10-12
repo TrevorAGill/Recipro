@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Recipro</string>
+    <string-array name="measurements">
+        <item>teaspoon</item>
+        <item>tablespoon</item>
+        <item>fluid oz</item>
+        <item>cup</item>
+        <item>pound</item>
+        <item>gram</item>
+        <item>kilogram</item>
+    </string-array>
 </resources>

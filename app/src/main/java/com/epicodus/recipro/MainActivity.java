@@ -1,5 +1,6 @@
 package com.epicodus.recipro;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mCreateRecipe) {
-            
+            Intent iCreateRecipe = new Intent(MainActivity.this, NewRecipeActivity.class);
+            startActivity(iCreateRecipe);
         } else if(v == mRecipeBox) {
 
         } else if(v == mFindRecipe) {
