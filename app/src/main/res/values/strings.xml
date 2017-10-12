@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Recipro</string>
+    <string name="measurementsPrompt">Choose a Measurement Type</string>
     <string-array name="measurements">
-        <item>teaspoon</item>
-        <item>tablespoon</item>
-        <item>fluid oz</item>
+        <item>tsp</item>
+        <item>tbs</item>
+        <item>fl oz</item>
         <item>cup</item>
-        <item>pound</item>
+        <item>lb</item>
         <item>gram</item>
-        <item>kilogram</item>
+        <item>kg</item>
     </string-array>
 </resources>

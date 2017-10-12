@@ -3,6 +3,7 @@ package com.epicodus.recipro;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,11 +21,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mCreateRecipe.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v == mCreateRecipe) {
+            Log.i("MainActivity","TEST");
             Intent iCreateRecipe = new Intent(MainActivity.this, NewRecipeActivity.class);
             startActivity(iCreateRecipe);
         } else if(v == mRecipeBox) {
