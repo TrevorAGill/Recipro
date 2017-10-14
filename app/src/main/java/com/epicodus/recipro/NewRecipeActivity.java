@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,13 +42,18 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
 
     public void onClick(View v) {
         if(v == mAddIngredientButton) {
-            String ingredient = createIngredientString();
-            test.add(ingredient);
-            ingredientList.clear();
-            ingredientList.addAll(test);
+            if(mIngredientName.getText().toString().trim().equalsIgnoreCase("") || mIngredientMeasurement.getSelectedItem().toString().trim().equalsIgnoreCase("") || mIngredientCount.getText().toString().trim().equalsIgnoreCase("")) {
+                Toast answerStatus = Toast.makeText(NewRecipeActivity.this, "Fill out all fields", Toast.LENGTH_LONG);
+                answerStatus.show();
+            } else {
+                String ingredient = createIngredientString();
+                test.add(ingredient);
+                ingredientList.clear();
+                ingredientList.addAll(test);
 //            clearIngredientInputs();
-            adapter.notifyDataSetChanged();
-            Log.i("NewRecipeActivity","List includes: " + ingredientList);
+                adapter.notifyDataSetChanged();
+                Log.i("NewRecipeActivity", "List includes: " + ingredientList);
+            }
         }
         if(v == mAddInstructionsButton) {
             FragmentManager fm = getFragmentManager();
@@ -62,6 +68,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         String count = mIngredientCount.getText().toString();
         String ingredient = String.format("%s %s %s", count, measurement, name);
         return ingredient;
+
     }
 
     public void clearIngredientInputs() {
