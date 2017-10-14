@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:weightSum="1"
+android:orientation="vertical"
+android:id="@+id/baseLayout">
+
+<TextView
+    android:text="Recipe Instructions"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/MoodLabel"
+    android:textColor="@color/colorPrimaryDark"
+    android:typeface="monospace"
+    android:textStyle="normal|bold"
+    android:layout_marginTop="10dp"
+    android:textAlignment="center"
+    android:padding="10dp" />
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp">
+
+        <Button
+            android:text="Submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/submitButton"
+            android:layout_weight="1" />
+        <Button
+            android:text="cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelButton"
+            android:layout_weight="1" />
+
+</LinearLayout>
+</LinearLayout>
