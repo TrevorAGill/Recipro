@@ -25,8 +25,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     @Bind(R.id.ingredientMeasurement) Spinner mIngredientMeasurement;
     @Bind(R.id.ingredientName) EditText mIngredientName;
     @Bind(R.id.listView) ListView mListView;
-    private ArrayList<String> ingredientList = new ArrayList<>();
-    private ArrayList<String> test = new ArrayList<>();
+    private ArrayList<String> ingredientList;
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -34,6 +33,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_recipe);
         ButterKnife.bind(this);
+        ingredientList = new ArrayList<String>();
         mAddInstructionsButton.setOnClickListener(this);
         mAddIngredientButton.setOnClickListener(this);
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientList);
@@ -47,11 +47,9 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
                 answerStatus.show();
             } else {
                 String ingredient = createIngredientString();
-                test.add(ingredient);
-                ingredientList.clear();
-                ingredientList.addAll(test);
-//            clearIngredientInputs();
+                ingredientList.add(ingredient);
                 adapter.notifyDataSetChanged();
+                clearIngredientInputs();
                 Log.i("NewRecipeActivity", "List includes: " + ingredientList);
             }
         }
@@ -76,5 +74,5 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         mIngredientCount.setText("");
         mIngredientMeasurement.setSelection(0);
     }
-
+    
 }
