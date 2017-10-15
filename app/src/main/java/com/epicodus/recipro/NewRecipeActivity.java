@@ -74,5 +74,5 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         mIngredientCount.setText("");
         mIngredientMeasurement.setSelection(0);
     }
-    
+
 }
