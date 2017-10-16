@@ -22,20 +22,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mCreateRecipe.setOnClickListener(this);
+        mFindRecipe.setOnClickListener(this);
+        mGroceryList.setOnClickListener(this);
+        mRecipeBox.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v == mCreateRecipe) {
-            Log.i("MainActivity","TEST");
             Intent iCreateRecipe = new Intent(MainActivity.this, NewRecipeActivity.class);
             startActivity(iCreateRecipe);
         } else if(v == mRecipeBox) {
-
+            Log.i("MainActivity","recipe box");
         } else if(v == mFindRecipe) {
-
+            Log.i("MainActivity","find recipe");
+            Intent iFindRecipes = new Intent(MainActivity.this, FindRecipesActivity.class);
+            startActivity(iFindRecipes);
         } else if(v == mGroceryList) {
-
+            Log.i("MainActivity","grocery list");
         }
     }
 }
