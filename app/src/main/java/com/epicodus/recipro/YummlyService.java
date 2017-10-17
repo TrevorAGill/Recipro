@@ -8,7 +8,7 @@ import okhttp3.Request;
 
 public class YummlyService {
 
-    public static void findRecipes(Integer time, Callback callback) {
+        public static void findRecipes(Integer time, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
