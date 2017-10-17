@@ -7,14 +7,13 @@ public class Recipe {
     private String course;
     private String flavor;
     private String cuisine;
+    private String rating;
 
-    public Recipe(String name, String[] ingredients, String time, String course, String flavor, String cuisine) {
+    public Recipe(String name, String[] ingredients, String time, String course) {
         this.name = name;
         this.ingredients = ingredients;
         this.time = time;
         this.course = course;
-        this.flavor = flavor;
-        this.cuisine = cuisine;
     }
 
     public String getName() {
@@ -39,5 +38,9 @@ public class Recipe {
 
     public String getCuisine() {
         return cuisine;
+    }
+
+    public String getRating() {
+        return rating;
     }
 }

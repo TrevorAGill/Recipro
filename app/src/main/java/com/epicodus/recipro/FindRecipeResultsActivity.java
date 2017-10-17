@@ -28,12 +28,14 @@ public class FindRecipeResultsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String time = intent.getStringExtra("time");
-        getRecipes(time);
+        String[] allowedIngredients = intent.getStringArrayExtra("allowedIngredients");
+
+        getRecipes(time,allowedIngredients);
     }
 
-    private void getRecipes(String time) {
+    private void getRecipes(String time, String[] allowedIngredients) {
         final YummlyService yelpService = new YummlyService();
-        yelpService.findRecipes(Integer.parseInt(time), new Callback() {
+        yelpService.findRecipes(Integer.parseInt(time), allowedIngredients, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

@@ -3,15 +3,19 @@ package com.epicodus.recipro;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FindRecipesActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.timeEditText) EditText mTime;
+    @Bind(R.id.includeIngredientsTextView) EditText mAllowedIngredients;
     @Bind(R.id.submitCriteriaButton) Button mSubmitCriteriaButton;
 
     @Override
@@ -26,8 +30,14 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == mSubmitCriteriaButton) {
             String time = mTime.getText().toString();
+            String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
+            for(int i=0 ; i < allowedIngredients.length ; i++) {
+                allowedIngredients[i] = allowedIngredients[i].replace(",","");
+            }
+            Log.i("FindRecipesActivity", "ingredient array = " + allowedIngredients);
             Intent intent = new Intent(FindRecipesActivity.this, FindRecipeResultsActivity.class);
             intent.putExtra("time", time);
+            intent.putExtra("allowedIngredients", allowedIngredients);
             startActivity(intent);
         }
     }
