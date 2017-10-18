@@ -7,8 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.ArrayList;
+import android.widget.Spinner;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,6 +15,9 @@ import butterknife.ButterKnife;
 public class FindRecipesActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.timeEditText) EditText mTime;
     @Bind(R.id.includeEditText) EditText mAllowedIngredients;
+    @Bind(R.id.excludeEditText) EditText mExcludedIngredients;
+    @Bind(R.id.courseSpinner) Spinner mCourse;
+    @Bind(R.id.cuisineSpinner) Spinner mCuisine;
     @Bind(R.id.submitCriteriaButton) Button mSubmitCriteriaButton;
 
     @Override
@@ -31,16 +33,28 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
         if (v == mSubmitCriteriaButton) {
             String time = mTime.getText().toString();
             String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
-            for(int i=0 ; i < allowedIngredients.length ; i++) {
-                allowedIngredients[i] = allowedIngredients[i].replace(",","");
+            String[] excludedIngredients = mExcludedIngredients.getText().toString().split(",");
+            String cuisine = mCuisine.getSelectedItem().toString();
+            String course = mCourse.getSelectedItem().toString();
+            for(String ingredient : allowedIngredients) {
+                ingredient = ingredient.replace(",","");
                 //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
-                allowedIngredients[i] = allowedIngredients[i].replace(" ", "");
-                System.out.println(allowedIngredients[i]);
+                ingredient = ingredient.replace(" ", "");
+                System.out.println(ingredient);
+            }
+            for(String ingredient : excludedIngredients) {
+                ingredient = ingredient.replace(",","");
+                //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
+                ingredient = ingredient.replace(" ", "");
+                System.out.println(ingredient);
             }
             Log.i("FindRecipesActivity", "ingredient array = " + allowedIngredients);
             Intent intent = new Intent(FindRecipesActivity.this, FindRecipeResultsActivity.class);
             intent.putExtra("time", time);
             intent.putExtra("allowedIngredients", allowedIngredients);
+            intent.putExtra("excludedIngredients", excludedIngredients);
+            intent.putExtra("cuisine", cuisine);
+            intent.putExtra("course", course);
             startActivity(intent);
         }
     }

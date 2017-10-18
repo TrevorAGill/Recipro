@@ -92,16 +92,22 @@ import okhttp3.Response;
 
 public class YummlyService {
 
-        public static void findRecipes(Integer time, String[] allowedIngredients, Callback callback) {
+        public static void findRecipes(Integer time, String[] allowedIngredients, String[] excludedIngredients, String cuisine, String course, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YUMMLY_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.YUMMLY_TIME_QUERY_PARAMETER, time.toString());
-        for(int i=0 ; i<allowedIngredients.length ; i++) {
-            urlBuilder.addQueryParameter(Constants.YUMMLY_ALLOWED_INGREDIENTS_QUERY_PARAMETER, allowedIngredients[i]);
+        urlBuilder.addQueryParameter(Constants.YUMMLY_CUISINE_QUERY_PARAMETER, cuisine);
+        urlBuilder.addQueryParameter(Constants.YUMMLY_COURSE_QUERY_PARAMETER, course);
+        for(String ingredient : allowedIngredients) {
+            urlBuilder.addQueryParameter(Constants.YUMMLY_ALLOWED_INGREDIENTS_QUERY_PARAMETER, ingredient);
         }
+        for(String ingredient : allowedIngredients) {
+                urlBuilder.addQueryParameter(Constants.YUMMLY_EXCLUDED_INGREDIENTS_QUERY_PARAMETER, ingredient);
+        }
+
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder()
@@ -127,7 +133,7 @@ public class YummlyService {
                                 String[] ingredients = ingredientsRaw.toString().replace("},{", " ,").split(" ");
                                 String course = recipeJSON.getString("course");
                                 String cuisine = recipeJSON.getString("cuisine");
-                                Recipe recipe = new Recipe(name, ingredients, time, course);
+                                Recipe recipe = new Recipe(name, ingredients, time, course, cuisine);
                                 recipes.add(recipe);
                         }
                 }

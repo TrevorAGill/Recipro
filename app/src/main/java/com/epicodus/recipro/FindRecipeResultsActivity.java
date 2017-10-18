@@ -9,9 +9,7 @@ import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import butterknife.Bind;
 import okhttp3.Response;
 
 
@@ -29,13 +27,18 @@ public class FindRecipeResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String time = intent.getStringExtra("time");
         String[] allowedIngredients = intent.getStringArrayExtra("allowedIngredients");
+        String[] excludedIngredients = intent.getStringArrayExtra("excludedIngredients");
+        String course = intent.getStringExtra("course");
+        String cuisine = intent.getStringExtra("cuisine");
 
-        getRecipes(time,allowedIngredients);
+
+
+        getRecipes(time,allowedIngredients,excludedIngredients,course,cuisine);
     }
 
-    private void getRecipes(String time, String[] allowedIngredients) {
+    private void getRecipes(String time, String[] allowedIngredients, String[] excludedIngredients, String course, String cuisine) {
         final YummlyService yummlyService = new YummlyService();
-        yummlyService.findRecipes(Integer.parseInt(time), allowedIngredients, new Callback() {
+        yummlyService.findRecipes(Integer.parseInt(time), allowedIngredients, excludedIngredients, course, cuisine, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

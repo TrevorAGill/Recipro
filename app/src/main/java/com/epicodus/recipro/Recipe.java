@@ -5,15 +5,16 @@ public class Recipe {
     private String[] ingredients;
     private String time;
     private String course;
-    private String flavor;
     private String cuisine;
+    private String flavor;
     private String rating;
 
-    public Recipe(String name, String[] ingredients, String time, String course) {
+    public Recipe(String name, String[] ingredients, String time, String course, String cuisine) {
         this.name = name;
         this.ingredients = ingredients;
         this.time = time;
         this.course = course;
+        this.cuisine = cuisine;
     }
 
     public String getName() {
