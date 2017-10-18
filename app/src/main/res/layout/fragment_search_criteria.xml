@@ -84,7 +84,6 @@
     <TextView
         android:id="@+id/timeTextView"
         android:layout_gravity="bottom"
-        android:paddingLeft=""
         android:layout_width="138dp"
         android:layout_height="43dp"
         android:layout_marginLeft="8dp"

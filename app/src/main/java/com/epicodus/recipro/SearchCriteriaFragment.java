@@ -1,6 +1,7 @@
 package com.epicodus.recipro;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.epicodus.myrestaurants.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,10 +29,38 @@ public class SearchCriteriaFragment extends Fragment implements View.OnClickList
     @Bind(R.id.cuisineSpinner) Spinner mCuisine;
     @Bind(R.id.submitCriteriaButton) Button mSubmitCriteriaButton;
 
-
     public SearchCriteriaFragment() {
         // Required empty public constructor
     }
+
+    // Define the listener of the interface type
+    // listener will the activity instance containing fragment
+    private OnItemSelectedListener listener;
+
+    // Define the events that the fragment will use to communicate
+    public interface OnItemSelectedListener {
+        // This can be any number of events to be sent to the activity
+        public void onRssItemSelected(String link);
+    }
+
+    // Store the listener (activity) that will have events fired once the fragment is attached
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnItemSelectedListener) {
+            listener = (OnItemSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implement MyListFragment.OnItemSelectedListener");
+        }
+    }
+
+    public void onSomeClick(View v) {
+        listener.onRssItemSelected("some link");
+    }
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +82,7 @@ public class SearchCriteriaFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == mSubmitCriteriaButton) {
-            FindRecipesActivity.showSearchResults();
+            FindRecipesActivity.searchForRecipes();
             String time = mTime.getText().toString();
             String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
             String[] excludedIngredients = mExcludedIngredients.getText().toString().split(",");
@@ -80,6 +109,10 @@ public class SearchCriteriaFragment extends Fragment implements View.OnClickList
             intent.putExtra("course", course);
             startActivity(intent);
         }
+    }
+
+    public interface RecipeSearcher {
+        public void searchForRecipes();
     }
 
 }
