@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class FindRecipesActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.timeEditText) EditText mTime;
-    @Bind(R.id.includeIngredientsTextView) EditText mAllowedIngredients;
+    @Bind(R.id.includeEditText) EditText mAllowedIngredients;
     @Bind(R.id.submitCriteriaButton) Button mSubmitCriteriaButton;
 
     @Override
@@ -33,6 +33,9 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
             String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
             for(int i=0 ; i < allowedIngredients.length ; i++) {
                 allowedIngredients[i] = allowedIngredients[i].replace(",","");
+                //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
+                allowedIngredients[i] = allowedIngredients[i].replace(" ", "");
+                System.out.println(allowedIngredients[i]);
             }
             Log.i("FindRecipesActivity", "ingredient array = " + allowedIngredients);
             Intent intent = new Intent(FindRecipesActivity.this, FindRecipeResultsActivity.class);

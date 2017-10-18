@@ -34,8 +34,8 @@ public class FindRecipeResultsActivity extends AppCompatActivity {
     }
 
     private void getRecipes(String time, String[] allowedIngredients) {
-        final YummlyService yelpService = new YummlyService();
-        yelpService.findRecipes(Integer.parseInt(time), allowedIngredients, new Callback() {
+        final YummlyService yummlyService = new YummlyService();
+        yummlyService.findRecipes(Integer.parseInt(time), allowedIngredients, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -44,6 +44,7 @@ public class FindRecipeResultsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
+                    Log.i("FindRecipeResultsActivi", "this is a test" + response);
                     String jsonData = response.body().string();
                     Log.v(TAG, jsonData);
                 } catch (IOException e) {
