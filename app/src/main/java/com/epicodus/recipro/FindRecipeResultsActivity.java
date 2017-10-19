@@ -3,6 +3,8 @@ package com.epicodus.recipro;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,7 +24,8 @@ import okhttp3.Response;
 public class FindRecipeResultsActivity extends AppCompatActivity {
     public static final String TAG = FindRecipeResultsActivity.class.getSimpleName();
     public ArrayList<Recipe> recipes = new ArrayList<>();
-    @Bind(R.id.listView) ListView mListView;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private RecipeListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +64,11 @@ public class FindRecipeResultsActivity extends AppCompatActivity {
                 FindRecipeResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String[] recipeNames = new String[recipes.size()];
-                        for(int i = 0 ; i < recipeNames.length ; i ++){
-                            recipeNames[i] = recipes.get(i).getName();
-                        }
-                        System.out.println(recipeNames.length);
-                        System.out.println(recipeNames);
-
-                        ArrayAdapter adapter = new ArrayAdapter(FindRecipeResultsActivity.this,
-                                android.R.layout.simple_list_item_1, recipeNames);
-                        mListView.setAdapter(adapter);
+                        mAdapter = new RecipeListAdapter(getApplicationContext(), recipes);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FindRecipeResultsActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
                 });
 
