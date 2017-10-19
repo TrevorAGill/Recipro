@@ -92,21 +92,29 @@ import okhttp3.Response;
 
 public class YummlyService {
 
-        public static void findRecipes(Integer time, String[] allowedIngredients, String[] excludedIngredients, String cuisine, String course, Callback callback) {
+        public static void findRecipes(String time, String[] allowedIngredients, String[] excludedIngredients, String cuisine, String course, Callback callback) {
+                System.out.println("cuisine=" + cuisine);
+                System.out.println("course=" + course);
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YUMMLY_BASE_URL).newBuilder();
-        for(String ingredient : allowedIngredients) {
-            urlBuilder.addQueryParameter(Constants.YUMMLY_ALLOWED_INGREDIENTS_QUERY_PARAMETER, ingredient);
+        if(allowedIngredients.toString().length() != 0) {
+                for(String ingredient : allowedIngredients) {
+                        urlBuilder.addQueryParameter(Constants.YUMMLY_ALLOWED_INGREDIENTS_QUERY_PARAMETER, ingredient);
+                }
         }
-        for(String ingredient : excludedIngredients) {
-                urlBuilder.addQueryParameter(Constants.YUMMLY_EXCLUDED_INGREDIENTS_QUERY_PARAMETER, ingredient);
+        if(excludedIngredients.toString().length() != 0) {
+                System.out.println("exluded ingredients length = " + excludedIngredients.toString().length() + excludedIngredients.toString());
+                for(String ingredient : excludedIngredients) {
+                        urlBuilder.addQueryParameter(Constants.YUMMLY_EXCLUDED_INGREDIENTS_QUERY_PARAMETER, ingredient);
+                }
         }
-        urlBuilder.addQueryParameter(Constants.YUMMLY_TIME_QUERY_PARAMETER, time.toString());
-        urlBuilder.addQueryParameter(Constants.YUMMLY_CUISINE_QUERY_PARAMETER, cuisine);
-        urlBuilder.addQueryParameter(Constants.YUMMLY_COURSE_QUERY_PARAMETER, course);
+        if(time.length() != 0) {urlBuilder.addQueryParameter(Constants.YUMMLY_TIME_QUERY_PARAMETER, time);}
+        if(cuisine.length() != 0) {urlBuilder.addQueryParameter(Constants.YUMMLY_CUISINE_QUERY_PARAMETER, cuisine);}
+        if(course.length() != 0) {urlBuilder.addQueryParameter(Constants.YUMMLY_COURSE_QUERY_PARAMETER, course);}
 
         String url = urlBuilder.build().toString();
 
@@ -128,12 +136,13 @@ public class YummlyService {
                         for (int i = 0; i < matchesJSON.length(); i++) {
                                 JSONObject recipeJSON = matchesJSON.getJSONObject(i);
                                 String name = recipeJSON.getString("recipeName");
+                                System.out.println("RECIPE NAME: " + name);
                                 String time = recipeJSON.getString("totalTimeInSeconds");
                                 JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredients");
                                 String[] ingredients = ingredientsRaw.toString().replace("},{", " ,").split(" ");
                                 String course = recipeJSON.getString("course");
                                 String cuisine = recipeJSON.getString("cuisine");
-                                Recipe recipe = new Recipe(name, ingredients, time, course, cuisine);
+                                Recipe recipe = new Recipe(name, ingredients, time);
                                 recipes.add(recipe);
                         }
                 }

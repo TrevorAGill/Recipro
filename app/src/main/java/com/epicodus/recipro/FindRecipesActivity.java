@@ -55,7 +55,7 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
             if(mCuisine.getSelectedItem().toString() != null && mCuisine.getSelectedItem().toString() != "") {String cuisine = mCuisine.getSelectedItem().toString();
                 intent.putExtra("cuisine", cuisine);
             }
-            if(mCourse.getSelectedItem().toString() != null && mCuisine.getSelectedItem().toString() != "") {String course = mCourse.getSelectedItem().toString();
+            if(mCourse.getSelectedItem().toString() != null && mCourse.getSelectedItem().toString() != "") {String course = mCourse.getSelectedItem().toString();
                 intent.putExtra("course", course);
             }
 
