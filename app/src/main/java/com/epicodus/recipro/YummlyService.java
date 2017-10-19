@@ -98,15 +98,15 @@ public class YummlyService {
 
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YUMMLY_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.YUMMLY_TIME_QUERY_PARAMETER, time.toString());
-        urlBuilder.addQueryParameter(Constants.YUMMLY_CUISINE_QUERY_PARAMETER, cuisine);
-        urlBuilder.addQueryParameter(Constants.YUMMLY_COURSE_QUERY_PARAMETER, course);
         for(String ingredient : allowedIngredients) {
             urlBuilder.addQueryParameter(Constants.YUMMLY_ALLOWED_INGREDIENTS_QUERY_PARAMETER, ingredient);
         }
-        for(String ingredient : allowedIngredients) {
+        for(String ingredient : excludedIngredients) {
                 urlBuilder.addQueryParameter(Constants.YUMMLY_EXCLUDED_INGREDIENTS_QUERY_PARAMETER, ingredient);
         }
+        urlBuilder.addQueryParameter(Constants.YUMMLY_TIME_QUERY_PARAMETER, time.toString());
+        urlBuilder.addQueryParameter(Constants.YUMMLY_CUISINE_QUERY_PARAMETER, cuisine);
+        urlBuilder.addQueryParameter(Constants.YUMMLY_COURSE_QUERY_PARAMETER, course);
 
         String url = urlBuilder.build().toString();
 
