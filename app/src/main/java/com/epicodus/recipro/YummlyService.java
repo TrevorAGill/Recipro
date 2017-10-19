@@ -136,13 +136,12 @@ public class YummlyService {
                         for (int i = 0; i < matchesJSON.length(); i++) {
                                 JSONObject recipeJSON = matchesJSON.getJSONObject(i);
                                 String name = recipeJSON.getString("recipeName");
-                                System.out.println("RECIPE NAME: " + name);
-                                String time = recipeJSON.getString("totalTimeInSeconds");
+                                String time = recipeJSON.optString("totalTimeInSeconds");
                                 JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredients");
                                 String[] ingredients = ingredientsRaw.toString().replace("},{", " ,").split(" ");
-                                String course = recipeJSON.getString("course");
-                                String cuisine = recipeJSON.getString("cuisine");
-                                Recipe recipe = new Recipe(name, ingredients, time);
+                                String course = recipeJSON.optString("course");
+                                String cuisine = recipeJSON.optString("cuisine");
+                                Recipe recipe = new Recipe(name, ingredients, time, cuisine, course);
                                 recipes.add(recipe);
                         }
                 }

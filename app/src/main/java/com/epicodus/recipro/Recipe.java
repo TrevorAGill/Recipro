@@ -9,12 +9,12 @@ public class Recipe {
     private String flavor;
     private String rating;
 
-    public Recipe(String name, String[] ingredients, String time) {
+    public Recipe(String name, String[] ingredients, String time, String course, String cuisine) {
         this.name = name;
         this.ingredients = ingredients;
         this.time = time;
-//        this.course = course;
-//        this.cuisine = cuisine;
+        this.course = course;
+        this.cuisine = cuisine;
     }
 
     public String getName() {
