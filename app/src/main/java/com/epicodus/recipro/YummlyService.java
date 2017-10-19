@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,7 +93,7 @@ import okhttp3.Response;
 
 public class YummlyService {
 
-        public static void findRecipes(String time, String[] allowedIngredients, String[] excludedIngredients, String cuisine, String course, Callback callback) {
+        public static void findRecipes(String time, String[] allowedIngredients, String[] excludedIngredients, String course, String cuisine, Callback callback) {
                 System.out.println("cuisine=" + cuisine);
                 System.out.println("course=" + course);
 
@@ -101,14 +102,20 @@ public class YummlyService {
 
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YUMMLY_BASE_URL).newBuilder();
-        if(allowedIngredients.toString().length() != 0) {
+        if((Arrays.toString(allowedIngredients)).length() != 2) {
                 for(String ingredient : allowedIngredients) {
+                        ingredient.trim();
+                        ingredient = ingredient.replace(" ", "");
+                        ingredient = ingredient.replace("%20", "");
                         urlBuilder.addQueryParameter(Constants.YUMMLY_ALLOWED_INGREDIENTS_QUERY_PARAMETER, ingredient);
                 }
         }
-        if(excludedIngredients.toString().length() != 0) {
-                System.out.println("exluded ingredients length = " + excludedIngredients.toString().length() + excludedIngredients.toString());
+        if((Arrays.toString(excludedIngredients)).length() != 2) {
+                System.out.println("exluded ingredients length = " + (Arrays.toString(excludedIngredients)).length() + (Arrays.toString(excludedIngredients)));
                 for(String ingredient : excludedIngredients) {
+                        ingredient.trim();
+                        ingredient = ingredient.replace(" ", "");
+                        ingredient = ingredient.replace("%20", "");
                         urlBuilder.addQueryParameter(Constants.YUMMLY_EXCLUDED_INGREDIENTS_QUERY_PARAMETER, ingredient);
                 }
         }
@@ -141,7 +148,7 @@ public class YummlyService {
                                 String[] ingredients = ingredientsRaw.toString().replace("},{", " ,").split(" ");
                                 String course = recipeJSON.optString("course");
                                 String cuisine = recipeJSON.optString("cuisine");
-                                Recipe recipe = new Recipe(name, ingredients, time, cuisine, course);
+                                Recipe recipe = new Recipe(name, ingredients, time, course, cuisine);
                                 recipes.add(recipe);
                         }
                 }
