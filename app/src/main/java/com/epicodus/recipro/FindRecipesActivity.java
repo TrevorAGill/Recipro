@@ -32,8 +32,13 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == mSubmitCriteriaButton) {
             Intent intent = new Intent(FindRecipesActivity.this, FindRecipeResultsActivity.class);
-            if(mTime.getText().toString() != null && mTime.getText().toString() != "") {String time = Integer.toString(Integer.parseInt(mTime.getText().toString()) * 60);
-                intent.putExtra("time", time);}
+            if(mTime.getText().toString().length() != 0) {
+                String time = Integer.toString(Integer.parseInt(mTime.getText().toString()) * 60);
+                intent.putExtra("time", time);
+            } else {
+                String time = "50000000";
+                intent.putExtra("time", time);
+            }
             if(mAllowedIngredients.getText().toString() != null && mAllowedIngredients.getText().toString() != "") {String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
                 for(String ingredient : allowedIngredients) {
                     ingredient = ingredient.replace(",","");

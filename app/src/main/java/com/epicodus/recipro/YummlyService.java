@@ -120,10 +120,9 @@ public class YummlyService {
                 }
         }
         if(time.length() != 0) {urlBuilder.addQueryParameter(Constants.YUMMLY_TIME_QUERY_PARAMETER, time);}
-        if(cuisine.length() != 0) {urlBuilder.addQueryParameter(Constants.YUMMLY_CUISINE_QUERY_PARAMETER, cuisine);}
-        if(course.length() != 0) {urlBuilder.addQueryParameter(Constants.YUMMLY_COURSE_QUERY_PARAMETER, course);}
-
         String url = urlBuilder.build().toString();
+        if(cuisine.length() != 0) {url = url + "&allowedCuisine[]=cuisine^cuisine-" + cuisine.toLowerCase();}
+        if(course.length() != 0) {url = url + "&allowedCourse[]=course^course-" + course;}
 
         Request request = new Request.Builder()
                 .url(url)
