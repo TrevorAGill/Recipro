@@ -31,30 +31,34 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == mSubmitCriteriaButton) {
-            String time = mTime.getText().toString();
-            String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
-            String[] excludedIngredients = mExcludedIngredients.getText().toString().split(",");
-            String cuisine = mCuisine.getSelectedItem().toString();
-            String course = mCourse.getSelectedItem().toString();
-            for(String ingredient : allowedIngredients) {
-                ingredient = ingredient.replace(",","");
-                //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
-                ingredient = ingredient.replace(" ", "");
-                System.out.println(ingredient);
-            }
-            for(String ingredient : excludedIngredients) {
-                ingredient = ingredient.replace(",","");
-                //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
-                ingredient = ingredient.replace(" ", "");
-                System.out.println(ingredient);
-            }
-            Log.i("FindRecipesActivity", "ingredient array = " + allowedIngredients);
             Intent intent = new Intent(FindRecipesActivity.this, FindRecipeResultsActivity.class);
-            intent.putExtra("time", time);
-            intent.putExtra("allowedIngredients", allowedIngredients);
-            intent.putExtra("excludedIngredients", excludedIngredients);
-            intent.putExtra("cuisine", cuisine);
-            intent.putExtra("course", course);
+            if(mTime.getText().toString() != null && mTime.getText().toString() != "") {String time = Integer.toString(Integer.parseInt(mTime.getText().toString()) * 60);
+                intent.putExtra("time", time);}
+            if(mAllowedIngredients.getText().toString() != null && mAllowedIngredients.getText().toString() != "") {String[] allowedIngredients = mAllowedIngredients.getText().toString().split(",");
+                for(String ingredient : allowedIngredients) {
+                    ingredient = ingredient.replace(",","");
+                    //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
+                    ingredient = ingredient.replace(" ", "");
+                    System.out.println(ingredient);
+                    intent.putExtra("allowedIngredients", allowedIngredients);
+                }
+            }
+            if(mExcludedIngredients.getText().toString() != null && mExcludedIngredients.getText().toString() != "") {String[] excludedIngredients = mExcludedIngredients.getText().toString().split(",");
+                for(String ingredient : excludedIngredients) {
+                    ingredient = ingredient.replace(",","");
+                    //this needs to be improved. Currently removes ALL spaces, not just leading and trailing spaces
+                    ingredient = ingredient.replace(" ", "");
+                    System.out.println(ingredient);
+                    intent.putExtra("excludedIngredients", excludedIngredients);
+                }
+            }
+            if(mCuisine.getSelectedItem().toString() != null && mCuisine.getSelectedItem().toString() != "") {String cuisine = mCuisine.getSelectedItem().toString();
+                intent.putExtra("cuisine", cuisine);
+            }
+            if(mCourse.getSelectedItem().toString() != null && mCuisine.getSelectedItem().toString() != "") {String course = mCourse.getSelectedItem().toString();
+                intent.putExtra("course", course);
+            }
+
             startActivity(intent);
         }
     }

@@ -10,6 +10,49 @@
         <item>gram</item>
         <item>kg</item>
     </string-array>
+    <string-array name="cuisines">
+        <item></item>
+        <item>American</item>
+        <item>Italian</item>
+        <item>Asian</item>
+        <item>Mexican</item>
+        <item>Southern &amp; Soul Food</item>
+        <item>French</item>
+        <item>Southwestern</item>
+        <item>Barbecue</item>
+        <item>Indian</item>
+        <item>Chinese</item>
+        <item>Cajun &amp; Creole</item>
+        <item>English</item>
+        <item>Mediterranean</item>
+        <item>Greek</item>
+        <item>Spanish</item>
+        <item>German</item>
+        <item>Thai</item>
+        <item>Moroccan</item>
+        <item>Irish</item>
+        <item>Japanese</item>
+        <item>Cuban</item>
+        <item>Hawaiin</item>
+        <item>Swedish</item>
+        <item>Hungarian</item>
+        <item>Portugese</item>
+    </string-array>
+    <string-array name="courses">
+        <item></item>
+        <item>Main Dishes</item>
+        <item>Desserts</item>
+        <item>Side Dishes</item>
+        <item>Lunch and Snacks</item>
+        <item>Appetizers</item>
+        <item>Salads</item>
+        <item>Breads</item>
+        <item>Breakfast and Brunch</item>
+        <item>Soups</item>
+        <item>Beverages</item>
+        <item>Condiments and Sauces</item>
+        <item>Cocktails</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
