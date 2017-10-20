@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Recipro.iml" filepath="$PROJECT_DIR$/Recipro.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/recipro.iml" filepath="$PROJECT_DIR$/recipro.iml" />
     </modules>
   </component>
 </project>

@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".NewRecipeActivity" />
         <activity android:name=".FindRecipesActivity" />
-        <activity android:name=".FindRecipeResultsActivity"></activity>
+        <activity android:name=".FindRecipeResultsActivity" />
+        <activity android:name=".RecipeDetailActivity"></activity>
     </application>
 
 </manifest>

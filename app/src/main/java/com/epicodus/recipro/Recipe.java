@@ -1,5 +1,8 @@
 package com.epicodus.recipro;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Recipe {
     private String name;
     private String[] ingredients;
@@ -9,12 +12,22 @@ public class Recipe {
     private String flavor;
     private String rating;
 
-    public Recipe(String name, String[] ingredients, String time, String course, String cuisine) {
+    //For use by Parceler
+    public Recipe() {
+
+    }
+
+    public Recipe(String name, String[] ingredients, String time, String course, String cuisine, String rating) {
         this.name = name;
         this.ingredients = ingredients;
         this.time = time;
         this.course = course;
         this.cuisine = cuisine;
+        this.rating = rating;
+    }
+
+    public Recipe(String name, String[] ingredients, String time, String course, String cuisine) {
+        this(name, ingredients, time, course, cuisine,"");
     }
 
     public String getName() {
