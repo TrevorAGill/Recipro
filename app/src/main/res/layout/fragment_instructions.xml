@@ -8,7 +8,7 @@ android:orientation="vertical"
 android:id="@+id/baseLayout">
 
 <TextView
-    android:text="Recipe Instructions"
+    android:text="Recipe Details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/MoodLabel"
@@ -19,11 +19,39 @@ android:id="@+id/baseLayout">
     android:textAlignment="center"
     android:padding="10dp" />
 
-<LinearLayout
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Recipe Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Minutes to prepare"
+            android:inputType="number" />
+
+        <Spinner
+            android:id="@+id/courseSpinner"
+            android:entries="@array/courses"
+            android:layout_width="match_parent"
+            android:layout_height="42dp" />
+
+        <Spinner
+            android:id="@+id/cuisineSpinner"
+            android:entries="@array/cuisines"
+            android:layout_width="match_parent"
+            android:layout_height="42dp" />
+
+        <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="50dp">
+    android:layout_marginTop="10dp">
 
         <Button
             android:text="Submit"
