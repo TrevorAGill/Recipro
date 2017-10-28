@@ -97,7 +97,7 @@
         android:layout_height="48dp"
         android:layout_width="0dp"
         android:layout_weight="0.06"
-        android:text="Add Instructions"
+        android:text="Add Recipe Details"
         android:layout_marginLeft="3dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="3dp"

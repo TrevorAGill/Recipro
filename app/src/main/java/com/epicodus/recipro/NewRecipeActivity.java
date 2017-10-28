@@ -1,6 +1,7 @@
 package com.epicodus.recipro;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener {
+public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener, InstructionsFragment.OnSubmitButtonListener {
     @Bind(R.id.addIngredientButton) Button mAddIngredientButton;
     @Bind(R.id.addInstructionsButton) Button mAddInstructionsButton;
     @Bind(R.id.saveRecipeButton) Button mSaveRecipeButton;
@@ -29,6 +30,10 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     @Bind(R.id.ingredientMeasurement) Spinner mIngredientMeasurement;
     @Bind(R.id.ingredientName) EditText mIngredientName;
     @Bind(R.id.listView) ListView mListView;
+    private String name;
+    private String time;
+    private String cuisine;
+    private String course;
     private ArrayList<String> ingredientList;
     private ArrayAdapter<String> adapter;
     private DatabaseReference mSavedRecipeReference;
@@ -51,6 +56,12 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
                 .child(Constants.FIREBASE_SAVED_RECIPE);
     }
 
+    public void passNewRecipeDetails(String name2, String time2, String cuisine2, String course2) {
+        name = name2;
+        time = time2;
+        cuisine = cuisine2;
+        course = course2;
+    }
 
 
     public void onClick(View v) {
@@ -72,8 +83,10 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
             instructionsFragment.show(fm, "Sample Fragment");
         }
         if(v == mSaveRecipeButton) {
-            Recipe newRecipe = new Recipe("Recipe1", ingredientList);
+            Recipe newRecipe = new Recipe(name, ingredientList, time, course, cuisine);
             saveRecipeToFireBase(newRecipe);
+            Intent intent = new Intent(NewRecipeActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
