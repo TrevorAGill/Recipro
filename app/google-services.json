@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "831636726349",
+    "firebase_url": "https://recipro-2faf6.firebaseio.com",
+    "project_id": "recipro-2faf6",
+    "storage_bucket": "recipro-2faf6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831636726349:android:0e3fe0cb205b8177",
+        "android_client_info": {
+          "package_name": "com.epicodus.recipro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831636726349-03gt1gi67uv6jq9qtjjthmp3m7h8v03d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epicodus.recipro",
+            "certificate_hash": "6424acf03f2290e20644fbafd83bacbe85d75aba"
+          }
+        },
+        {
+          "client_id": "831636726349-08iqfn7nbgblu09dh1dc6ebie1rijsq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVyZ-enOZ7flPGJZxtUUGwuT_CVuAEkkM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831636726349-08iqfn7nbgblu09dh1dc6ebie1rijsq7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
