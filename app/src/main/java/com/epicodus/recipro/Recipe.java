@@ -2,10 +2,12 @@ package com.epicodus.recipro;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
+
 @Parcel
 public class Recipe {
     private String name;
-    private String[] ingredients;
+    private ArrayList ingredients;
     private String time;
     private String course;
     private String cuisine;
@@ -17,24 +19,24 @@ public class Recipe {
 
     }
 
-    public Recipe(String name, String[] ingredients, String time, String course, String cuisine, String rating) {
+    public Recipe(String name, ArrayList<String> ingredients, String time, String course, String cuisine) {
         this.name = name;
         this.ingredients = ingredients;
         this.time = time;
         this.course = course;
         this.cuisine = cuisine;
-        this.rating = rating;
     }
 
-    public Recipe(String name, String[] ingredients, String time, String course, String cuisine) {
-        this(name, ingredients, time, course, cuisine,"");
+    public Recipe(String name, ArrayList<String> ingredients) {
+        this.name = name;
+        this.ingredients = ingredients;
     }
 
     public String getName() {
         return name;
     }
 
-    public String[] getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 

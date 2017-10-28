@@ -13,6 +13,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -21,12 +24,14 @@ import butterknife.ButterKnife;
 public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.addIngredientButton) Button mAddIngredientButton;
     @Bind(R.id.addInstructionsButton) Button mAddInstructionsButton;
+    @Bind(R.id.saveRecipeButton) Button mSaveRecipeButton;
     @Bind(R.id.ingredientCount) EditText mIngredientCount;
     @Bind(R.id.ingredientMeasurement) Spinner mIngredientMeasurement;
     @Bind(R.id.ingredientName) EditText mIngredientName;
     @Bind(R.id.listView) ListView mListView;
     private ArrayList<String> ingredientList;
     private ArrayAdapter<String> adapter;
+    private DatabaseReference mSavedRecipeReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +41,17 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         ingredientList = new ArrayList<String>();
         mAddInstructionsButton.setOnClickListener(this);
         mAddIngredientButton.setOnClickListener(this);
+        mSaveRecipeButton.setOnClickListener(this);
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientList);
         mListView.setAdapter(adapter);
+
+        mSavedRecipeReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_SAVED_RECIPE);
     }
+
+
 
     public void onClick(View v) {
         if(v == mAddIngredientButton) {
@@ -58,6 +71,14 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
             InstructionsFragment instructionsFragment = new InstructionsFragment();
             instructionsFragment.show(fm, "Sample Fragment");
         }
+        if(v == mSaveRecipeButton) {
+            Recipe newRecipe = new Recipe("Recipe1", ingredientList);
+            saveRecipeToFireBase(newRecipe);
+        }
+    }
+
+    public void saveRecipeToFireBase(Recipe newRecipe) {
+        mSavedRecipeReference.setValue(newRecipe);
     }
 
     public String createIngredientString() {

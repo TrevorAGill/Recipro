@@ -144,7 +144,7 @@ public class YummlyService {
                                 String name = recipeJSON.getString("recipeName");
                                 String time = recipeJSON.optString("totalTimeInSeconds");
                                 JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredients");
-                                String[] ingredients = ingredientsRaw.toString().replace("},{", " ,").split(" ");
+                                ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(ingredientsRaw.toString().replace("},{", " ,").split(" ")));
                                 String course = recipeJSON.optString("course");
                                 String cuisine = recipeJSON.optString("cuisine");
                                 Recipe recipe = new Recipe(name, ingredients, time, course, cuisine);
