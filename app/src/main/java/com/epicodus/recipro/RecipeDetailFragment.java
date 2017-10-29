@@ -29,7 +29,7 @@ public class RecipeDetailFragment extends Fragment {
     public static RecipeDetailFragment newInstance(Recipe recipe) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("restaurant", Parcels.wrap(recipe));
+        args.putParcelable("recipe", Parcels.wrap(recipe));
         recipeDetailFragment.setArguments(args);
         return recipeDetailFragment;
     }
@@ -49,7 +49,7 @@ public class RecipeDetailFragment extends Fragment {
 
         mNameLabel.setText(mRecipe.getName());
         mCategoriesLabel.setText(mRecipe.getCuisine());
-        mRatingLabel.setText(mRecipe.getRating() + "/5");
+//        mRatingLabel.setText(mRecipe.getRating() + "/5");
 
         return view;
     }
