@@ -20,9 +20,11 @@ import okhttp3.Response;
 
 
 public class RecipeDetailActivity extends AppCompatActivity {
-    @Bind(R.id.viewPager) ViewPager mViewPager;
+    @Bind(R.id.viewPager)
+    ViewPager mViewPager;
     private RecipePagerAdapter adapterViewPager;
     ArrayList<Recipe> mRecipes = new ArrayList<>();
+    Recipe mRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,34 +39,26 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
 
+        mRecipe = mRecipes.get(startingPosition);
+        getRecipe(mRecipe.getId(), mRecipe);
+
     }
 
-//    private void getRecipes2(String source) {
-//        final YummlyService yummlyService = new YummlyService();
-//        yummlyService.findRecipes(time, allowedIngredients, excludedIngredients, course, cuisine, new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                Log.i("FindRecipeResults", "response is: " + response);
-//                recipes = yummlyService.processResults(response);
-//                Log.i("FindRecipeResults", "recipes are: " + recipes);
-//
-//                FindRecipeResultsActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mAdapter = new RecipeListAdapter(getApplicationContext(), recipes);
-//                        mRecyclerView.setAdapter(mAdapter);
-//                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FindRecipeResultsActivity.this);
-//                        mRecyclerView.setLayoutManager(layoutManager);
-//                        mRecyclerView.setHasFixedSize(true);
-//                    }
-//                });
-//
-//            }
-//        });
-//    }
+    private void getRecipe(String id, final Recipe recipe) {
+        final YummlyService yummlyService = new YummlyService();
+
+        yummlyService.getRecipeAPI(id, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.i("FindRecipeResults", "response is: " + response);
+                String source = yummlyService.processResults2(response);
+                recipe.setSource(source);
+            }
+        });
+    }
 }

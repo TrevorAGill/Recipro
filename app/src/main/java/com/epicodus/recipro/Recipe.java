@@ -79,4 +79,8 @@ public class Recipe {
     public String getSmallImageURL() {
         return smallImageURL;
     }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 }

@@ -64,17 +64,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void bindRecipe(Recipe recipe) {
             mNameTextView.setText(recipe.getName());
             String image = recipe.getSmallImageURL();
-            Picasso.with(mContext)
-                    .load(image)
-                    .into(mRecipeImageView);
-//            mCuisineTextView.setText(recipe.getCuisine());
-//            mRatingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+            Picasso.with(mContext).load(image).into(mRecipeImageView);
         }
 
         @Override
         public void onClick(View v) {
             Log.d("click listener", "working!");
             int itemPosition = getLayoutPosition();
+
+
+//            System.out.println(mRecipes.get(itemPosition).getName());
+
             Intent intent = new Intent(mContext, RecipeDetailActivity.class);
             intent.putExtra("position", itemPosition + "");
             intent.putExtra("recipes", Parcels.wrap(mRecipes));
