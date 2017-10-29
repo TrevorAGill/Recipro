@@ -15,82 +15,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-//        "attributes": {
-//        "course": [
-//        "Soups"
-//        ],
-//        "cuisine": [
-//        "Italian"
-//        ]
-//        },
-//        "flavors": {
-//        "salty": 0.6666666666666666,
-//        "sour": 0.8333333333333334,
-//        "sweet": 0.6666666666666666,
-//        "bitter": 0.5,
-//        "meaty": 0.16666666666666666,
-//        "piquant": 0.5
-//        },
-//        "rating": 4.6,
-//        "id": "Vegetarian-Cabbage-Soup-Recipezaar",
-//        "smallImageUrls": [],
-//        "sourceDisplayName": "Food.com",
-//        "totalTimeInSeconds": 4500,
-//        "ingredients": [
-//        "garlic cloves",
-//        "ground pepper",
-//        "diced tomatoes",
-//        "celery",
-//        "tomato juice",
-//        "salt",
-//        "cabbage",
-//        "bell peppers",
-//        "oregano",
-//        "carrots",
-//        "basil",
-//        "vegetable broth",
-//        "chili pepper flakes",
-//        "green beans",
-//        "onions",
-//        "onion soup mix"
-//        ],
-//        "recipeName": "Vegetarian Cabbage Soup"
-//        },
-//        {
-//        "attributes": {
-//        "course": [
-//        "Soups"
-//        ],
-//        "cuisine": [
-//        "Moroccan",
-//        "Asian"
-//        ]
-//        },
-//        "flavors": {
-//        "salty": 0.6666666666666666,
-//        "sour": 0.6666666666666666,
-//        "sweet": 0.5,
-//        "bitter": 0.5,
-//        "meaty": 0.3333333333333333,
-//        "piquant": 0.6666666666666666
-//        },
-//        "rating": 5,
-//        "id": "Oriental-Inspired-Vegetable-Soup-Recipezaar",
-//        "smallImageUrls": [],
-//        "sourceDisplayName": "Food.com",
-//        "totalTimeInSeconds": 24300,
-//        "ingredients": [
-//        "tamari",
-//        "rice vinegar",
-//        "bamboo shoots",
-//        "lime juice",
-//        "pepper",
-//        "vegetable bouillon",
-//        "sesame oil",
-//        ],
-//        "recipeName": "Oriental Inspired Vegetable Soup"
-//        },
-
 public class YummlyService {
 
         public static void findRecipes(String time, String[] allowedIngredients, String[] excludedIngredients, String course, String cuisine, Callback callback) {
@@ -147,7 +71,9 @@ public class YummlyService {
                                 ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(ingredientsRaw.toString().replace("},{", " ,").split(" ")));
                                 String course = recipeJSON.optString("course");
                                 String cuisine = recipeJSON.optString("cuisine");
-                                Recipe recipe = new Recipe(name, ingredients, time, course, cuisine);
+                                String id = recipeJSON.getString("id");
+                                String smallImageURL = recipeJSON.getString("smallImageUrls");
+                                Recipe recipe = new Recipe(id, name, ingredients, time, course, cuisine, smallImageURL);
                                 recipes.add(recipe);
                         }
                 }

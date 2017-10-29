@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 @Parcel
 public class Recipe {
+    private String id;
     private String name;
     private ArrayList ingredients;
     private String time;
     private String course;
     private String cuisine;
-    private String flavor;
-    private String rating;
+    private String source;
+    private String smallImageURL;
 
     //For use by Parceler
     public Recipe() {
@@ -27,9 +28,28 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
-    public Recipe(String name, ArrayList<String> ingredients) {
+    public Recipe(String source, String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine) {
+        this.source = source;
+        this.id = id;
         this.name = name;
         this.ingredients = ingredients;
+        this.time = time;
+        this.course = course;
+        this.cuisine = cuisine;
+    }
+
+    public Recipe(String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine, String smallImageURL) {
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.time = time;
+        this.course = course;
+        this.cuisine = cuisine;
+        this.smallImageURL = smallImageURL;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -48,15 +68,15 @@ public class Recipe {
         return course;
     }
 
-    public String getFlavor() {
-        return flavor;
-    }
-
     public String getCuisine() {
         return cuisine;
     }
 
-    public String getRating() {
-        return rating;
+    public String getSource() {
+        return source;
+    }
+
+    public String getSmallImageURL() {
+        return smallImageURL;
     }
 }
