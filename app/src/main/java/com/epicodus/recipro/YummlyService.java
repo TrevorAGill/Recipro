@@ -114,13 +114,13 @@ public class YummlyService {
         }
 
         public String processResults2(Response response) {
-                String test = "";
+                String test2 = "";
                 try {
                         String jsonData = response.body().string();
                         JSONObject recipeJSON = new JSONObject(jsonData);
-                                test = recipeJSON.getJSONObject("source").toString();
-//                                String test2 = recipeJSON.getJSONObject("source").getJSONObject("sourceRecipeURL").toString();
-                                System.out.println(test);
+                                JSONObject test = recipeJSON.getJSONObject("source");
+                                test2 = test.get("sourceRecipeUrl").toString();
+                                System.out.println(test2);
 //                                source = recipeJSON.getJSONObject("source").getJSONArray("sourceRecipeURL").toString();
                 }
                 catch (IOException e){
@@ -129,8 +129,8 @@ public class YummlyService {
                 catch (JSONException e){
                         e.printStackTrace();
                 }
-                System.out.println(test);
-                return test;
+                System.out.println(test2);
+                return test2;
         }
 
         public void saveRecipeToFireBase(Recipe newRecipe) {

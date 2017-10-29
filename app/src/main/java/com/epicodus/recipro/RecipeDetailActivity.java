@@ -40,25 +40,25 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(startingPosition);
 
         mRecipe = mRecipes.get(startingPosition);
-        getRecipe(mRecipe.getId(), mRecipe);
+//        getRecipe(mRecipe.getId(), mRecipe);
 
     }
 
-    private void getRecipe(String id, final Recipe recipe) {
-        final YummlyService yummlyService = new YummlyService();
-
-        yummlyService.getRecipeAPI(id, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.i("FindRecipeResults", "response is: " + response);
-                String source = yummlyService.processResults2(response);
-                recipe.setSource(source);
-            }
-        });
-    }
+//    private void getRecipe(String id, final Recipe recipe) {
+//        final YummlyService yummlyService = new YummlyService();
+//
+//        yummlyService.getRecipeAPI(id, new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Log.i("FindRecipeResults", "response is: " + response);
+//                String source = yummlyService.processResults2(response);
+//                recipe.setSource(source);
+//            }
+//        });
+//    }
 }
