@@ -31,7 +31,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mRecipes = Parcels.unwrap(getIntent().getParcelableExtra("recipes"));
-        int startingPosition = getIntent().getIntExtra("position", 0);
+        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
 
         adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);
         mViewPager.setAdapter(adapterViewPager);
@@ -39,7 +39,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     }
 
-//    private void getRecipes2(String time, String[] allowedIngredients, String[] excludedIngredients, String course, String cuisine) {
+//    private void getRecipes2(String source) {
 //        final YummlyService yummlyService = new YummlyService();
 //        yummlyService.findRecipes(time, allowedIngredients, excludedIngredients, course, cuisine, new Callback() {
 //            @Override
