@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -61,6 +63,10 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         public void bindRecipe(Recipe recipe) {
             mNameTextView.setText(recipe.getName());
+            String image = recipe.getSmallImageURL();
+            Picasso.with(mContext)
+                    .load(image)
+                    .into(mRecipeImageView);
 //            mCuisineTextView.setText(recipe.getCuisine());
 //            mRatingTextView.setText("Rating: " + restaurant.getRating() + "/5");
         }
