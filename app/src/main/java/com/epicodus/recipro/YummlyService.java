@@ -112,15 +112,19 @@ public class YummlyService {
                 return recipes;
         }
 
-        public String processResults2(Response response) {
-                String test2 = "";
+        public String[] processResults2(Response response) {
+                String[] details = new String[2];
+                String sourceURL = "";
+                String imageURL = "";
+
                 try {
                         String jsonData = response.body().string();
                         JSONObject recipeJSON = new JSONObject(jsonData);
-                                JSONObject test = recipeJSON.getJSONObject("source");
-                                test2 = test.get("sourceRecipeUrl").toString();
-                                System.out.println(test2);
-//                                source = recipeJSON.getJSONObject("source").getJSONArray("sourceRecipeURL").toString();
+
+                        sourceURL = recipeJSON.getJSONObject("source").get("sourceRecipeUrl").toString();
+                        imageURL = recipeJSON.getJSONArray("images").getJSONObject(0).get("hostedLargeUrl").toString();
+                        details[0] = sourceURL;
+                        details[1] = imageURL;
                 }
                 catch (IOException e){
                         e.printStackTrace();
@@ -128,8 +132,7 @@ public class YummlyService {
                 catch (JSONException e){
                         e.printStackTrace();
                 }
-                System.out.println(test2);
-                return test2;
+                return details;
         }
 
         public void saveRecipeToFireBase(Recipe newRecipe) {

@@ -1,6 +1,7 @@
 package com.epicodus.recipro;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -33,6 +37,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     @Bind(R.id.saveRecipeButton) TextView mSaveRecipeButton;
 
     private Recipe mRecipe;
+    private Context mContext;
 
     public static RecipeDetailFragment newInstance(Recipe recipe) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
@@ -54,12 +59,17 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
         ButterKnife.bind(this, view);
 
-//        Picasso.with(view.getContext()).load(mRecipe.getImageUrl()).into(mImageLabel);
+
 
         mNameLabel.setText(mRecipe.getName());
         mCategoriesLabel.setText((Integer.parseInt(mRecipe.getTime())/60) + " minutes");
 
         mWebsiteLabel.setOnClickListener(this);
+        mSaveRecipeButton.setOnClickListener(this);
+//        String image = mRecipe.getLargeImageURL();
+//        Picasso.with(view.getContext()).load(image).into(mImageLabel);
+//        Picasso.with(view.getContext()).load("https://lh3.googleusercontent.com/2sjI93FnOV7SSSPXrGRKCWTfenwnkkx9u8C4SjqqtZ3ZwO5aOB5KAVx5zaqsknFGphjKjE0vmtpFOMuwxZbpKA=s360").into(mImageLabel);
+
 //        mRatingLabel.setText(mRecipe.getRating() + "/5");
 
         return view;
@@ -71,6 +81,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRecipe.getSource()));
             startActivity(webIntent);
+        }
+        if (v == mSaveRecipeButton) {
+            DatabaseReference recipeRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_RECIPES);
+            recipeRef.push().setValue(mRecipe);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,9 +102,14 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.i("FindRecipeResults", "response is: " + response);
-                String source = yummlyService.processResults2(response);
-                recipe.setSource(source);
+                String[] details = yummlyService.processResults2(response);
+                String sourceURL = details[0];
+                String imageURL = details[1];
+                recipe.setSource(sourceURL);
+                recipe.setLargeImageURL(imageURL);
+//                String image = mRecipe.getLargeImageURL();
+//                Picasso.with(mContext).load(image).into(mImageLabel);
+
             }
         });
     }

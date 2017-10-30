@@ -12,5 +12,6 @@ public class Constants {
     public static final String YUMMLY_CUISINE_QUERY_PARAMETER = "&allowedCuisine[]=cuisine^cuisine-";
     public static final String YUMMLY_COURSE_QUERY_PARAMETER = "course";
     public static final String FIREBASE_SAVED_RECIPE = "savedRecipe";
+    public static final String FIREBASE_CHILD_RECIPES = "recipes";
 
 }
