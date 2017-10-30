@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ import okhttp3.Response;
 public class RecipeDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.recipeImageView) ImageView mImageLabel;
     @Bind(R.id.recipeNameTextView) TextView mNameLabel;
-    @Bind(R.id.cuisineTextView) TextView mCategoriesLabel;
+    @Bind(R.id.timeTextView) TextView mTimeLabel;
     @Bind(R.id.ratingTextView) TextView mRatingLabel;
     @Bind(R.id.websiteTextView) TextView mWebsiteLabel;
     @Bind(R.id.saveRecipeButton) TextView mSaveRecipeButton;
@@ -63,17 +62,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
 
 
         mNameLabel.setText(mRecipe.getName());
-        mCategoriesLabel.setText((Integer.parseInt(mRecipe.getTime())/60) + " minutes");
+        mTimeLabel.setText((Integer.parseInt(mRecipe.getTime())/60) + " minutes");
 
         mWebsiteLabel.setOnClickListener(this);
         mSaveRecipeButton.setOnClickListener(this);
         int thumbnailLength = mRecipe.getSmallImageURL().length();
         String largeImage = StringUtils.substring(mRecipe.getSmallImageURL(), 0 , thumbnailLength -2) + "360";
         Picasso.with(view.getContext()).load(largeImage).into(mImageLabel);
-//        Picasso.with(view.getContext()).load("https://lh3.googleusercontent.com/2sjI93FnOV7SSSPXrGRKCWTfenwnkkx9u8C4SjqqtZ3ZwO5aOB5KAVx5zaqsknFGphjKjE0vmtpFOMuwxZbpKA=s360").into(mImageLabel);
-
-//        mRatingLabel.setText(mRecipe.getRating() + "/5");
-
         return view;
     }
 
@@ -109,9 +104,6 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                 String imageURL = details[1];
                 recipe.setSource(sourceURL);
                 recipe.setLargeImageURL(imageURL);
-//                String image = mRecipe.getLargeImageURL();
-//                Picasso.with(mContext).load(image).into(mImageLabel);
-
             }
         });
     }
