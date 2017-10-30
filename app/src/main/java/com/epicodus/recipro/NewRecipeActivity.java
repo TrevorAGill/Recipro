@@ -36,7 +36,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     private String course;
     private ArrayList<String> ingredientList;
     private ArrayAdapter<String> adapter;
-    private DatabaseReference mSavedRecipeReference;
+    private DatabaseReference recipeRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +50,10 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientList);
         mListView.setAdapter(adapter);
 
-        mSavedRecipeReference = FirebaseDatabase
+        recipeRef = FirebaseDatabase
                 .getInstance()
                 .getReference()
-                .child(Constants.FIREBASE_SAVED_RECIPE);
+                .child(Constants.FIREBASE_CHILD_RECIPES);
     }
 
     public void passNewRecipeDetails(String name2, String time2, String cuisine2, String course2) {
@@ -91,7 +91,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void saveRecipeToFireBase(Recipe newRecipe) {
-        mSavedRecipeReference.setValue(newRecipe);
+        recipeRef.push().setValue(newRecipe);
     }
 
     public String createIngredientString() {
