@@ -98,10 +98,9 @@ public class YummlyService {
                                 String course = recipeJSON.optString("course");
                                 String cuisine = recipeJSON.optString("cuisine");
                                 String id = recipeJSON.getString("id");
-                                String smallImageURL = recipeJSON.getString("smallImageUrls").replace("[","").replace("]","").replace("\"", "");
+                                String smallImageURL = recipeJSON.getString("smallImageUrls").replace("[","").replace("]","").replace("\"", "").replace("\\","");
                                 Recipe recipe = new Recipe(id, name, ingredients, time, course, cuisine, smallImageURL);
                                 recipes.add(recipe);
-                                saveRecipeToFireBase(recipe);
                         }
                 }
                 catch (IOException e){

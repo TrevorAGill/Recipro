@@ -12,8 +12,10 @@ public class Recipe {
     private String time;
     private String course;
     private String cuisine;
-    private String source;
     private String smallImageURL;
+    private String largeImageURL;
+    private String source;
+
 
     //For use by Parceler
     public Recipe() {
@@ -28,15 +30,14 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
-    public Recipe(String source, String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine) {
-        this.source = source;
-        this.id = id;
-        this.name = name;
-        this.ingredients = ingredients;
-        this.time = time;
-        this.course = course;
-        this.cuisine = cuisine;
-    }
+//    public Recipe(String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine) {
+//        this.id = id;
+//        this.name = name;
+//        this.ingredients = ingredients;
+//        this.time = time;
+//        this.course = course;
+//        this.cuisine = cuisine;
+//    }
 
     public Recipe(String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine, String smallImageURL) {
         this.id = id;
@@ -82,5 +83,13 @@ public class Recipe {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getLargeImageURL() {
+        return largeImageURL;
+    }
+
+    public void setLargeImageURL(String largeImageURL) {
+        this.largeImageURL = largeImageURL;
     }
 }

@@ -57,9 +57,7 @@ public class FindRecipeResultsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.i("FindRecipeResults", "response is: " + response);
                 recipes = yummlyService.processResults(response);
-                Log.i("FindRecipeResults", "recipes are: " + recipes);
 
                 FindRecipeResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
