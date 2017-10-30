@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import org.apache.commons.lang3.StringUtils;
 import org.parceler.Parcels;
 
 import java.io.IOException;
@@ -66,8 +67,9 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
 
         mWebsiteLabel.setOnClickListener(this);
         mSaveRecipeButton.setOnClickListener(this);
-//        String image = mRecipe.getLargeImageURL();
-//        Picasso.with(view.getContext()).load(image).into(mImageLabel);
+        int thumbnailLength = mRecipe.getSmallImageURL().length();
+        String largeImage = StringUtils.substring(mRecipe.getSmallImageURL(), 0 , thumbnailLength -2) + "360";
+        Picasso.with(view.getContext()).load(largeImage).into(mImageLabel);
 //        Picasso.with(view.getContext()).load("https://lh3.googleusercontent.com/2sjI93FnOV7SSSPXrGRKCWTfenwnkkx9u8C4SjqqtZ3ZwO5aOB5KAVx5zaqsknFGphjKjE0vmtpFOMuwxZbpKA=s360").into(mImageLabel);
 
 //        mRatingLabel.setText(mRecipe.getRating() + "/5");
