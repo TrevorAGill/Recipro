@@ -92,12 +92,12 @@
     </LinearLayout>
 
             <Button
+                android:id="@+id/saveRecipeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Recipe"
-                android:id="@+id/saveRecipeButton"
                 android:layout_alignParentBottom="true"
                 android:background="@color/colorAccent"
+                android:text="Save To Recipe Box"
                 android:textColor="@color/colorTextIcons"
                 android:textSize="15sp" />
         </RelativeLayout>
