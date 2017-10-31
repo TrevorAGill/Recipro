@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -99,11 +100,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String[] details = yummlyService.processResults2(response);
-                String sourceURL = details[0];
-                String imageURL = details[1];
+                ArrayList<Object> details = yummlyService.processResults2(response);
+                String sourceURL = (String) details.get(0);
+                String imageURL = (String) details.get(1);
+                ArrayList<String> ingredients = (ArrayList<String>) details.get(2);
                 recipe.setSource(sourceURL);
                 recipe.setLargeImageURL(imageURL);
+                recipe.setIngredients(ingredients);
             }
         });
     }

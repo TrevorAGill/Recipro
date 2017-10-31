@@ -93,13 +93,13 @@ public class YummlyService {
                                 JSONObject recipeJSON = matchesJSON.getJSONObject(i);
                                 String name = recipeJSON.getString("recipeName");
                                 String time = recipeJSON.optString("totalTimeInSeconds");
-                                JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredients");
-                                ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(ingredientsRaw.toString().replace("},{", " ,").split(" ")));
+//                                JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredients");
+//                                ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(ingredientsRaw.toString().replace("},{", " ,").split(" ")));
                                 String course = recipeJSON.optString("course");
                                 String cuisine = recipeJSON.optString("cuisine");
                                 String id = recipeJSON.getString("id");
                                 String smallImageURL = recipeJSON.getString("smallImageUrls").replace("[","").replace("]","").replace("\"", "").replace("\\","");
-                                Recipe recipe = new Recipe(id, name, ingredients, time, course, cuisine, smallImageURL);
+                                Recipe recipe = new Recipe(id, name, time, course, cuisine, smallImageURL);
                                 recipes.add(recipe);
                         }
                 }
@@ -112,8 +112,9 @@ public class YummlyService {
                 return recipes;
         }
 
-        public String[] processResults2(Response response) {
-                String[] details = new String[2];
+        public ArrayList<Object> processResults2(Response response) {
+//                String[] details = new String[3];
+                ArrayList<Object> details = new ArrayList<>();
                 String sourceURL = "";
                 String imageURL = "";
 
@@ -123,8 +124,20 @@ public class YummlyService {
 
                         sourceURL = recipeJSON.getJSONObject("source").get("sourceRecipeUrl").toString();
                         imageURL = recipeJSON.getJSONArray("images").getJSONObject(0).get("hostedLargeUrl").toString();
-                        details[0] = sourceURL;
-                        details[1] = imageURL;
+                        ArrayList<String> ingredients = new ArrayList<String>();
+                        JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredientLines");
+                        for(int i = 0; i <ingredientsRaw.length(); i++){
+                                String transformedIngredient = ingredientsRaw.getString(i).replace("[","").replace("]","").replace("\"","").replace("\\","");
+                                ingredients.add(transformedIngredient);
+                        }
+//                        ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(ingredientsRaw.toString().replace("[","").replace("]","").replace("\"","").replace("\\","").split(",")));
+
+//                        ArrayList<String> ingredients = new ArrayList<>(Arrays.asList(ingredientsRaw.toString().replace("},{", " ,").split(",")));
+
+                        details.add(sourceURL);
+                        details.add(imageURL);
+                        details.add(ingredients);
+
                 }
                 catch (IOException e){
                         e.printStackTrace();

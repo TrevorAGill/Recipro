@@ -49,6 +49,16 @@ public class Recipe {
         this.smallImageURL = smallImageURL;
     }
 
+    //no ingredients constructor
+    public Recipe(String id, String name, String time, String course, String cuisine, String smallImageURL) {
+        this.id = id;
+        this.name = name;
+        this.time = time;
+        this.course = course;
+        this.cuisine = cuisine;
+        this.smallImageURL = smallImageURL;
+    }
+
     public String getId() {
         return id;
     }
@@ -91,5 +101,9 @@ public class Recipe {
 
     public void setLargeImageURL(String largeImageURL) {
         this.largeImageURL = largeImageURL;
+    }
+
+    public void setIngredients(ArrayList ingredients) {
+        this.ingredients = ingredients;
     }
 }
