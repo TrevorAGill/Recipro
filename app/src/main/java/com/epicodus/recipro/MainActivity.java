@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mCreateRecipe) {
-            Intent iCreateRecipe = new Intent(MainActivity.this, NewRecipeActivity.class);
-            startActivity(iCreateRecipe);
+            Intent i = new Intent(MainActivity.this, NewRecipeActivity.class);
+            startActivity(i);
         } else if(v == mRecipeBox) {
-            Log.i("MainActivity","recipe box");
+            Intent i = new Intent(MainActivity.this, SavedRecipeListActivity.class);
+            startActivity(i);
         } else if(v == mFindRecipe) {
-            Log.i("MainActivity","find recipe");
             Intent iFindRecipes = new Intent(MainActivity.this, FindRecipesActivity.class);
             startActivity(iFindRecipes);
         } else if(v == mGroceryList) {
