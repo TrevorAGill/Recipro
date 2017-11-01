@@ -47,24 +47,33 @@ android:id="@+id/baseLayout">
             android:layout_height="42dp"
             android:entries="@array/cuisines" />
 
+        <Button
+            android:text="Add Photo"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:id="@+id/photoButton" />
+
+
         <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp">
-
-        <Button
-            android:text="Submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/submitButton"
-            android:layout_weight="1" />
-        <Button
-            android:text="cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cancelButton"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Submit" />
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="cancel" />
+
+        </LinearLayout>
+
 </LinearLayout>

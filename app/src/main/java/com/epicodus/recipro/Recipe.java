@@ -30,6 +30,15 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
+    public Recipe(String name, ArrayList<String> ingredients, String time, String course, String cuisine, String smallImageURL) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.time = time;
+        this.course = course;
+        this.cuisine = cuisine;
+        this.smallImageURL = smallImageURL;
+    }
+
 //    public Recipe(String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine) {
 //        this.id = id;
 //        this.name = name;

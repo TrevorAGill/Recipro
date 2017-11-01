@@ -34,6 +34,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     private String time;
     private String cuisine;
     private String course;
+    private String image;
     private ArrayList<String> ingredientList;
     private ArrayAdapter<String> adapter;
     private DatabaseReference recipeRef;
@@ -56,11 +57,12 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
                 .child(Constants.FIREBASE_CHILD_RECIPES);
     }
 
-    public void passNewRecipeDetails(String name2, String time2, String cuisine2, String course2) {
+    public void passNewRecipeDetails(String name2, String time2, String cuisine2, String course2, String image2) {
         name = name2;
         time = time2;
         cuisine = cuisine2;
         course = course2;
+        image = image2;
     }
 
 
@@ -83,7 +85,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
             instructionsFragment.show(fm, "Sample Fragment");
         }
         if(v == mSaveRecipeButton) {
-            Recipe newRecipe = new Recipe(name, ingredientList, time, course, cuisine);
+            Recipe newRecipe = new Recipe(name, ingredientList, time, course, cuisine, image);
             saveRecipeToFireBase(newRecipe);
             Intent intent = new Intent(NewRecipeActivity.this, MainActivity.class);
             startActivity(intent);
