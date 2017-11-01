@@ -2,6 +2,7 @@ package com.epicodus.recipro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +18,10 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static com.epicodus.recipro.RecipeDetailFragment.decodeFromFirebaseBase64;
 
 public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private static final int MAX_WIDTH = 200;
@@ -25,6 +29,7 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
 
     View mView;
     Context mContext;
+    public ImageView mRecipeImageView;
 
     public FirebaseRecipeViewHolder(View itemView) {
         super(itemView);
@@ -34,15 +39,25 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
     }
 
     public void bindRecipe(Recipe recipe) {
-        ImageView recipeImageView = (ImageView) mView.findViewById(R.id.recipeImageView);
+        mRecipeImageView = (ImageView) mView.findViewById(R.id.recipeImageView);
         TextView nameTextView = (TextView) mView.findViewById(R.id.recipeNameTextView);
         TextView courseTextView = (TextView) mView.findViewById(R.id.courseTextView);
 
-        Picasso.with(mContext)
-                .load(recipe.getSmallImageURL())
-                .resize(MAX_WIDTH, MAX_HEIGHT)
-                .centerCrop()
-                .into(recipeImageView);
+        if(!recipe.getSmallImageURL().contains("http")) {
+            try {
+                Bitmap imageBitmap = decodeFromFirebaseBase64(recipe.getSmallImageURL());
+                mRecipeImageView.setImageBitmap(imageBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Picasso.with(mContext)
+                    .load(recipe.getSmallImageURL())
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mRecipeImageView);
+        }
+
 
         nameTextView.setText(recipe.getName());
         courseTextView.setText(recipe.getCourse());
