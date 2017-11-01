@@ -20,6 +20,7 @@ import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.epicodus.recipro.RecipeDetailFragment.decodeFromFirebaseBase64;
 
@@ -41,7 +42,7 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
     public void bindRecipe(Recipe recipe) {
         mRecipeImageView = (ImageView) mView.findViewById(R.id.recipeImageView);
         TextView nameTextView = (TextView) mView.findViewById(R.id.recipeNameTextView);
-        TextView courseTextView = (TextView) mView.findViewById(R.id.courseTextView);
+//        TextView courseTextView = (TextView) mView.findViewById(R.id.courseTextView);
 
         if(!recipe.getSmallImageURL().contains("http")) {
             try {
@@ -58,22 +59,24 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
                     .into(mRecipeImageView);
         }
 
-
+//
         nameTextView.setText(recipe.getName());
-        courseTextView.setText(recipe.getCourse());
+//        courseTextView.setText(recipe.getCourse());
     }
 
     @Override
     public void onClick(View view) {
-//        final GenericTypeIndicator<ArrayList<Recipe>> recipes = new GenericTypeIndicator<ArrayList<Recipe>>() {};
         final ArrayList<Recipe> recipes = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+//                GenericTypeIndicator<List<Recipe>> genericTypeIndicator = new GenericTypeIndicator<List<Recipe>>() {};
+//                List<Recipe> recipes = dataSnapshot.getValue(genericTypeIndicator);
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    recipes.add( (Recipe) snapshot.getValue());
                     recipes.add(snapshot.getValue(Recipe.class));
                 }
 

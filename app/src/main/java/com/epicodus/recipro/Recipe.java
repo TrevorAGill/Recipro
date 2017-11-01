@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Recipe {
     private String id;
     private String name;
-    private ArrayList ingredients;
+    private ArrayList<String> ingredients;
     private String time;
     private String course;
     private String cuisine;
@@ -72,36 +72,56 @@ public class Recipe {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
+    public void setIngredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public String getTime() {
         return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getCourse() {
         return course;
     }
 
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
     public String getCuisine() {
         return cuisine;
     }
 
-    public String getSource() {
-        return source;
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
 
     public String getSmallImageURL() {
         return smallImageURL;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setSmallImageURL(String smallImageURL) {
+        this.smallImageURL = smallImageURL;
     }
 
     public String getLargeImageURL() {
@@ -112,7 +132,11 @@ public class Recipe {
         this.largeImageURL = largeImageURL;
     }
 
-    public void setIngredients(ArrayList ingredients) {
-        this.ingredients = ingredients;
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

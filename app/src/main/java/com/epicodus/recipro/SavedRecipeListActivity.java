@@ -28,19 +28,17 @@ public class SavedRecipeListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mRecipeReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES);
+        System.out.println(mRecipeReference);
         setUpFirebaseAdapter();
     }
 
     private void setUpFirebaseAdapter() {
 
-                mFirebaseAdapter = new FirebaseRecyclerAdapter<Recipe, FirebaseRecipeViewHolder>
-                        (Recipe.class, R.layout.recipe_list_item, FirebaseRecipeViewHolder.class,
-                                mRecipeReference) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<Recipe, FirebaseRecipeViewHolder>
+                (Recipe.class, R.layout.recipe_list_item, FirebaseRecipeViewHolder.class, mRecipeReference) {
 
-                    @Override
-            protected void populateViewHolder(FirebaseRecipeViewHolder viewHolder,
-                                              Recipe model, int position) {
-                        Log.v("inside adapter", "here");
+            @Override
+            protected void populateViewHolder(FirebaseRecipeViewHolder viewHolder, Recipe model, int position) {
                 viewHolder.bindRecipe(model);
             }
         };
