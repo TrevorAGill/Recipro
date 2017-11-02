@@ -3,7 +3,6 @@ package com.epicodus.recipro;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +30,7 @@ public class FindRecipesActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == mSubmitCriteriaButton) {
-            Intent intent = new Intent(FindRecipesActivity.this, FindRecipeResultsActivity.class);
+            Intent intent = new Intent(FindRecipesActivity.this, RecipeListActivity.class);
             if(mTime.getText().toString().length() != 0) {
                 String time = Integer.toString(Integer.parseInt(mTime.getText().toString()) * 60);
                 intent.putExtra("time", time);

@@ -15,7 +15,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".NewRecipeActivity" />
         <activity android:name=".FindRecipesActivity" />
-        <activity android:name=".FindRecipeResultsActivity" />
+        <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".LoginActivity">
