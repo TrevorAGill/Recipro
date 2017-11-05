@@ -24,7 +24,7 @@ import java.util.List;
 
 import static com.epicodus.recipro.RecipeDetailFragment.decodeFromFirebaseBase64;
 
-public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder{
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
@@ -36,7 +36,7 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
+//        itemView.setOnClickListener(this);
     }
 
     public void bindRecipe(Recipe recipe) {
@@ -64,34 +64,34 @@ public class FirebaseRecipeViewHolder extends RecyclerView.ViewHolder implements
 //        courseTextView.setText(recipe.getCourse());
     }
 
-    @Override
-    public void onClick(View view) {
-        final ArrayList<Recipe> recipes = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-//                GenericTypeIndicator<List<Recipe>> genericTypeIndicator = new GenericTypeIndicator<List<Recipe>>() {};
-//                List<Recipe> recipes = dataSnapshot.getValue(genericTypeIndicator);
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    recipes.add(snapshot.getValue(Recipe.class));
-                }
-
-                int itemPosition = getLayoutPosition();
-
-                Intent intent = new Intent(mContext, RecipeDetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
-                intent.putExtra("recipes", Parcels.wrap(recipes));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
+//    @Override
+//    public void onClick(View view) {
+//        final ArrayList<Recipe> recipes = new ArrayList<>();
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES);
+//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                GenericTypeIndicator<List<Recipe>> genericTypeIndicator = new GenericTypeIndicator<List<Recipe>>() {};
+////                List<Recipe> recipes = dataSnapshot.getValue(genericTypeIndicator);
+//
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    recipes.add(snapshot.getValue(Recipe.class));
+//                }
+//
+//                int itemPosition = getLayoutPosition();
+//
+//                Intent intent = new Intent(mContext, RecipeDetailActivity.class);
+//                intent.putExtra("position", itemPosition + "");
+//                intent.putExtra("recipes", Parcels.wrap(recipes));
+//
+//                mContext.startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+//    }
 }

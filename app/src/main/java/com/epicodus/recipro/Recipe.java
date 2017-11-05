@@ -16,6 +16,7 @@ public class Recipe {
     private String largeImageURL;
     private String source;
     private String pushId;
+    String index;
 
 
     //For use by Parceler
@@ -29,6 +30,7 @@ public class Recipe {
         this.time = time;
         this.course = course;
         this.cuisine = cuisine;
+        this.index = "not_specified";
     }
 
     public Recipe(String name, ArrayList<String> ingredients, String time, String course, String cuisine, String smallImageURL) {
@@ -38,6 +40,7 @@ public class Recipe {
         this.course = course;
         this.cuisine = cuisine;
         this.smallImageURL = smallImageURL;
+        this.index = "not_specified";
     }
 
 //    public Recipe(String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine) {
@@ -57,6 +60,7 @@ public class Recipe {
         this.course = course;
         this.cuisine = cuisine;
         this.smallImageURL = smallImageURL;
+        this.index = "not_specified";
     }
 
     //no ingredients constructor
@@ -67,6 +71,7 @@ public class Recipe {
         this.course = course;
         this.cuisine = cuisine;
         this.smallImageURL = smallImageURL;
+        this.index = "not_specified";
     }
 
     public String getId() {
@@ -147,5 +152,13 @@ public class Recipe {
 
     public void setPushId(String pushId) {
         this.pushId = pushId;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
     }
 }
