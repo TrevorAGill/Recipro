@@ -2,6 +2,9 @@ package com.epicodus.recipro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,10 +49,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.recipeImageView) ImageView mRecipeImageView;
-        @Bind(R.id.recipeNameTextView) TextView mNameTextView;
-//        @Bind(R.id.categoryTextView) TextView mCategoryTextView;
-//        @Bind(R.id.ratingTextView) TextView mRatingTextView;
+        @Bind(R.id.recipeImageView)
+        ImageView mRecipeImageView;
+        @Bind(R.id.recipeNameTextView)
+        TextView mNameTextView;
+        private int mOrientation;
 
         private Context mContext;
 
@@ -59,6 +63,18 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
             mContext = itemView.getContext();
             itemView.setOnClickListener(this);
+
+            mOrientation = itemView.getResources().getConfiguration().orientation;
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(0);
+            }
+        }
+
+        private void createDetailFragment(int position) {
+            RecipeDetailFragment detailFragment = RecipeDetailFragment.newInstance(mRecipes, position);
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.restaurantDetailContainer, detailFragment);
+            ft.commit();
         }
 
         public void bindRecipe(Recipe recipe) {
@@ -69,16 +85,15 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         @Override
         public void onClick(View v) {
-            Log.d("click listener", "working!");
             int itemPosition = getLayoutPosition();
-
-
-//            System.out.println(mRecipes.get(itemPosition).getName());
-
-            Intent intent = new Intent(mContext, RecipeDetailActivity.class);
-            intent.putExtra("position", itemPosition + "");
-            intent.putExtra("recipes", Parcels.wrap(mRecipes));
-            mContext.startActivity(intent);
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else {
+                Intent intent = new Intent(mContext, RecipeDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition + "");
+                intent.putExtra(Constants.EXTRA_KEY_RECIPES, Parcels.wrap(mRecipes));
+                mContext.startActivity(intent);
+            }
         }
     }
 }
