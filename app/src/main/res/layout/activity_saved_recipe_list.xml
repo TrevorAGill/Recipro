@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="RecipeListActivity">
+    tools:context=".RecipeListActivity">
 
     <fragment
-        android:id="@+id/fragmentRestaurantList"
-        android:name="com.epicodus.recipro.RecipeListFragment"
+        android:id="@+id/activityRecipeList"
+        android:name="com.epicodus.recipro.RecipeListActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_recipe_list" />
+        tools:layout="@layout/activity_recipe_list" />
 
 </RelativeLayout>

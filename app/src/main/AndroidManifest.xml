@@ -3,7 +3,10 @@
     package="com.epicodus.recipro">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SavedRecipeListActivity"></activity>
+        <activity android:name=".SavedRecipeListActivity" />
     </application>
 
 </manifest>

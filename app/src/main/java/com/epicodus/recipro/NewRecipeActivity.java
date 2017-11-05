@@ -1,6 +1,7 @@
 package com.epicodus.recipro;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,6 +24,8 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static java.security.AccessController.getContext;
 
 public class NewRecipeActivity extends AppCompatActivity implements View.OnClickListener, InstructionsFragment.OnSubmitButtonListener {
     @Bind(R.id.addIngredientButton) Button mAddIngredientButton;
@@ -38,12 +43,14 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     private ArrayList<String> ingredientList;
     private ArrayAdapter<String> adapter;
     private DatabaseReference recipeRef;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_recipe);
         ButterKnife.bind(this);
+        context = this;
         ingredientList = new ArrayList<String>();
         mAddInstructionsButton.setOnClickListener(this);
         mAddIngredientButton.setOnClickListener(this);
@@ -93,7 +100,19 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void saveRecipeToFireBase(Recipe newRecipe) {
-        recipeRef.push().setValue(newRecipe);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        DatabaseReference recipeRef = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_RECIPES)
+                .child(uid);
+
+        DatabaseReference pushRef = recipeRef.push();
+        String pushId = pushRef.getKey();
+        newRecipe.setPushId(pushId);
+        pushRef.setValue(newRecipe);
+
+        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
     }
 
     public String createIngredientString() {

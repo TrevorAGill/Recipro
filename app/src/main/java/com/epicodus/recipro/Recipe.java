@@ -15,6 +15,7 @@ public class Recipe {
     private String smallImageURL;
     private String largeImageURL;
     private String source;
+    private String pushId;
 
 
     //For use by Parceler
@@ -138,5 +139,13 @@ public class Recipe {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 }
