@@ -8,11 +8,15 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static android.R.layout.simple_list_item_1;
+
 public class RecipeDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.recipeImageView) ImageView mImageLabel;
     @Bind(R.id.recipeNameTextView) TextView mNameLabel;
@@ -41,10 +47,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     @Bind(R.id.ratingTextView) TextView mRatingLabel;
     @Bind(R.id.websiteTextView) TextView mWebsiteLabel;
     @Bind(R.id.saveRecipeButton) TextView mSaveRecipeButton;
+    @Bind(R.id.ingredientListView) ListView mIngredientList;
 
     private Recipe mRecipe;
     private ArrayList<Recipe> mRecipes;
     private int mPosition;
+    private ArrayList<String> ingredients;
+    private ArrayAdapter<String> adapter;
 
     public static RecipeDetailFragment newInstance(ArrayList<Recipe> recipes, Integer position) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
@@ -64,6 +73,8 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mRecipe = mRecipes.get(mPosition);
         getRecipe(mRecipe.getId(), mRecipe);
+//        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
+//        mIngredientList.setAdapter(adapter);
     }
 
     @Override
@@ -122,10 +133,23 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                 ArrayList<Object> details = yummlyService.processResults2(response);
                 String sourceURL = (String) details.get(0);
                 String imageURL = (String) details.get(1);
-                ArrayList<String> ingredients = (ArrayList<String>) details.get(2);
+                ingredients = (ArrayList<String>) details.get(2);
                 recipe.setSource(sourceURL);
                 recipe.setLargeImageURL(imageURL);
                 recipe.setIngredients(ingredients);
+
+                adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
+                run(adapter);
+
+            }
+        });
+    }
+
+    public void run(final ArrayAdapter adapter) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mIngredientList.setAdapter(adapter);
             }
         });
     }

@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -55,41 +56,59 @@
                 android:layout_below="@+id/recipeNameTextView"
                 android:textColor="@color/colorSecondaryText"
                 android:textStyle="italic" />
+
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="30dp"-->
+                <!--android:paddingTop="20dp"-->
+                <!--android:paddingRight="30dp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true">-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="View Online"-->
+                    <!--android:id="@+id/websiteTextView"-->
+                    <!--android:drawablePadding="4dp"-->
+                    <!--android:textColor="#000000"-->
+                    <!--android:drawableLeft="@drawable/ic_exit_to_app_white_24dp"-->
+                    <!--android:textSize="15sp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:gravity="center"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--android:layout_marginTop="0dp"-->
+                    <!--android:layout_marginLeft="0dp"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent" />-->
+                <!---->
+
+
+
+
+    <!--</android.support.constraint.ConstraintLayout>-->
+
+            <ListView
+                android:id="@+id/ingredientListView"
+                android:background="@color/colorTextIcons"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/saveRecipeButton"
-                android:paddingLeft="30dp"
-                android:paddingTop="20dp"
-                android:paddingRight="30dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View Online"
-                    android:id="@+id/websiteTextView"
-                    android:drawablePadding="4dp"
-                    android:textColor="@color/colorTextIcons"
-                    android:drawableLeft="@drawable/ic_exit_to_app_white_24dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center" />
-
-
-
-
-    </LinearLayout>
+                android:layout_marginVertical="20dp"
+                android:layout_height="346dp"
+                android:scrollbars="horizontal"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="32dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <Button
                 android:id="@+id/saveRecipeButton"
@@ -100,6 +119,23 @@
                 android:text="Save To Recipe Box"
                 android:textColor="@color/colorTextIcons"
                 android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/websiteTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_exit_to_app_white_24dp"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:text="View Online"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>
