@@ -73,8 +73,6 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mRecipe = mRecipes.get(mPosition);
         getRecipe(mRecipe.getId(), mRecipe);
-//        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
-//        mIngredientList.setAdapter(adapter);
     }
 
     @Override

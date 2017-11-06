@@ -103,6 +103,7 @@ public class FirebaseRecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, F
                     createDetailFragment(itemPosition);
                 } else {
                     Intent intent = new Intent(mContext, RecipeDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
                     intent.putExtra(Constants.EXTRA_KEY_RECIPES, Parcels.wrap(mRecipes));
                     mContext.startActivity(intent);
                 }
