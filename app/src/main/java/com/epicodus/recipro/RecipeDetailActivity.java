@@ -32,7 +32,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
-
+        System.out.println("MRECIPEs= " + mRecipes);
+        System.out.println("Starting Position= " + startingPosition);
         mRecipe = mRecipes.get(startingPosition);
     }
 }

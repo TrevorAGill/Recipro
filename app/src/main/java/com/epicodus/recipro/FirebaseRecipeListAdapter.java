@@ -90,7 +90,7 @@ public class FirebaseRecipeListAdapter extends FirebaseRecyclerAdapter<Recipe, F
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, RecipeDetailActivity.class);
                 intent.putExtra("position", viewHolder.getAdapterPosition());
-                intent.putExtra("restaurants", Parcels.wrap(mRecipes));
+                intent.putExtra("recipes", Parcels.wrap(mRecipes));
                 mContext.startActivity(intent);
             }
         });
