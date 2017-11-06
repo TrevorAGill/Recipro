@@ -20,7 +20,7 @@ public class SavedRecipeListActivity extends AppCompatActivity {
     private FirebaseRecipeListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
-//    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class SavedRecipeListActivity extends AppCompatActivity {
 //        super.onDestroy();
 //        mFirebaseAdapter.cleanup();
 //    }
-//
+
 //    @Override
 //    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
 //        mItemTouchHelper.startDrag(viewHolder);

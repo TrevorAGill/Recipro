@@ -137,13 +137,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                 recipe.setIngredients(ingredients);
 
                 adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
-                run(adapter);
+                displayIngredients(adapter);
 
             }
         });
     }
 
-    public void run(final ArrayAdapter adapter) {
+    public void displayIngredients(final ArrayAdapter adapter) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

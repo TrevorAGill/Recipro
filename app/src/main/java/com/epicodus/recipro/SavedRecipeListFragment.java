@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class SavedRecipeListFragment extends Fragment implements OnStartDragListener {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private DatabaseReference mRecipeReference;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private FirebaseRecipeListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
     public SavedRecipeListFragment() {
@@ -66,9 +66,9 @@ public class SavedRecipeListFragment extends Fragment implements OnStartDragList
             }
         });
 
-//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
-//        mItemTouchHelper = new ItemTouchHelper(callback);
-//        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
 
