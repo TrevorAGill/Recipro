@@ -22,8 +22,13 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +36,7 @@ import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,6 +61,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     private ArrayList<String> ingredients;
     private ArrayAdapter<String> adapter;
     private String mSource;
+    private DatabaseReference mDatabaseRef;
 
     public static RecipeDetailFragment newInstance(ArrayList<Recipe> recipes, Integer position, String source) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
@@ -75,11 +82,46 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mRecipe = mRecipes.get(mPosition);
 
+
+
         mSource = getArguments().getString(Constants.KEY_SOURCE);
         setHasOptionsMenu(true);
 
         if (mSource.equals(Constants.SOURCE_SAVED)) {
             System.out.println("from saved");
+
+            //CODE TO DISPLAY INGREDIENTS IN SAVED RECIPES FROM FIREBASE--NOT WORKING
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            String uid = user.getUid();
+//
+//            mDatabaseRef = FirebaseDatabase.getInstance()
+//                    .getReference(Constants.FIREBASE_CHILD_RECIPES)
+//                    .child(uid)
+//                    .child(mRecipe.getPushId())
+//                    .child("ingredients");
+//
+//            System.out.println(mDatabaseRef);
+//
+//            mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//               @Override
+//               public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                   GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>() {};
+//                   ingredients = dataSnapshot.getValue(t);
+//                   System.out.println(ingredients);
+//               }
+//
+//               @Override
+//               public void onCancelled(DatabaseError error) {
+//                   System.out.println("error");
+//               }
+//            });
+//
+//            adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
+//            mIngredientList.setAdapter(adapter);
+
+
         } else {
             getRecipe(mRecipe.getId(), mRecipe);
         }
