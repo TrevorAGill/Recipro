@@ -48,7 +48,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             mEmailEditText.setText(savedEmail);
         }
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mEditor = mSharedPreferences.edit();
+
 
         createAuthProgressDialog();
         mAuth = FirebaseAuth.getInstance();
@@ -107,7 +107,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void addToSharedPreferences(String email) {
-        mEditor.putString(Constants.EXTRA_KEY_EMAIL, email).apply();
+        mEditor = mSharedPreferences.edit();
+        mEditor.putString(Constants.EXTRA_KEY_EMAIL, email);
+        mEditor.apply();
+        mEditor.commit();
         System.out.println("EMAIL KEY= " + Constants.EXTRA_KEY_EMAIL);
     }
 

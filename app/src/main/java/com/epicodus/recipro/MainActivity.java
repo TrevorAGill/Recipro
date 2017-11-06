@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.createRecipe) Button mCreateRecipe;
     @Bind(R.id.findRecipe) Button mFindRecipe;
-    @Bind(R.id.groceryList) Button mGroceryList;
     @Bind(R.id.recipeBox) Button mRecipeBox;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mCreateRecipe.setOnClickListener(this);
         mFindRecipe.setOnClickListener(this);
-        mGroceryList.setOnClickListener(this);
         mRecipeBox.setOnClickListener(this);
     }
 
@@ -78,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if(v == mFindRecipe) {
             Intent iFindRecipes = new Intent(MainActivity.this, FindRecipesActivity.class);
             startActivity(iFindRecipes);
-        } else if(v == mGroceryList) {
-            Log.i("MainActivity","grocery list");
         }
     }
 
