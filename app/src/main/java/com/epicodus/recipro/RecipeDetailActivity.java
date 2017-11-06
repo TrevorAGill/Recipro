@@ -17,6 +17,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private RecipePagerAdapter adapterViewPager;
     ArrayList<Recipe> mRecipes = new ArrayList<>();
     Recipe mRecipe;
+    private String mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
 //        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
           int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 //        int startingPosition = 1;
+        mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
 
-        adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);
+        adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes, mSource);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
         System.out.println("MRECIPEs= " + mRecipes);

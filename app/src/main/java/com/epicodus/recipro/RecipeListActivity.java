@@ -30,6 +30,7 @@ public class RecipeListActivity extends AppCompatActivity implements OnRecipeSel
     String cuisine = "";
     private Integer mPosition;
     ArrayList<Recipe> mRecipes;
+    String mSource;
 
 
     @Override
@@ -43,11 +44,13 @@ public class RecipeListActivity extends AppCompatActivity implements OnRecipeSel
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
                 mRecipes = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RECIPES));
+                mSource = savedInstanceState.getString(Constants.KEY_SOURCE);
 
                 if (mPosition != null && mRecipes != null) {
                     Intent intent = new Intent(this, RecipeDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
                     intent.putExtra(Constants.EXTRA_KEY_RECIPES, Parcels.wrap(mRecipes));
+                    intent.putExtra(Constants.KEY_SOURCE, mSource);
                     startActivity(intent);
                 }
 
@@ -76,14 +79,16 @@ public class RecipeListActivity extends AppCompatActivity implements OnRecipeSel
         if (mPosition != null && mRecipes != null) {
             outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
             outState.putParcelable(Constants.EXTRA_KEY_RECIPES, Parcels.wrap(mRecipes));
+            outState.putString(Constants.KEY_SOURCE, mSource);
         }
 
     }
 
     @Override
-    public void onRecipeSelected(Integer position, ArrayList<Recipe> recipes) {
+    public void onRecipeSelected(Integer position, ArrayList<Recipe> recipes, String source) {
         mPosition = position;
         mRecipes = recipes;
+        mSource = source;
     }
 
     public String getTime() {

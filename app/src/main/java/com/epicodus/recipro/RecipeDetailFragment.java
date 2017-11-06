@@ -54,13 +54,15 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     private int mPosition;
     private ArrayList<String> ingredients;
     private ArrayAdapter<String> adapter;
+    private String mSource;
 
-    public static RecipeDetailFragment newInstance(ArrayList<Recipe> recipes, Integer position) {
+    public static RecipeDetailFragment newInstance(ArrayList<Recipe> recipes, Integer position, String source) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
 
         args.putParcelable(Constants.EXTRA_KEY_RECIPES, Parcels.wrap(recipes));
         args.putInt(Constants.EXTRA_KEY_POSITION, position);
+        args.putString(Constants.KEY_SOURCE, source);
 
         recipeDetailFragment.setArguments(args);
         return recipeDetailFragment;
@@ -72,6 +74,9 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mRecipes = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_RECIPES));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mRecipe = mRecipes.get(mPosition);
+
+        mSource = getArguments().getString(Constants.KEY_SOURCE);
+        setHasOptionsMenu(true);
 
         getRecipe(mRecipe.getId(), mRecipe);
     }
@@ -87,7 +92,13 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mTimeLabel.setText((Integer.parseInt(mRecipe.getTime())/60) + " minutes");
 
         mWebsiteLabel.setOnClickListener(this);
-        mSaveRecipeButton.setOnClickListener(this);
+
+        if (mSource.equals(Constants.SOURCE_SAVED)) {
+            mSaveRecipeButton.setVisibility(View.GONE);
+        } else {
+            mSaveRecipeButton.setOnClickListener(this);
+        }
+
         int thumbnailLength = mRecipe.getSmallImageURL().length();
         String largeImage = StringUtils.substring(mRecipe.getSmallImageURL(), 0 , thumbnailLength -2) + "360";
         Picasso.with(view.getContext()).load(largeImage).into(mImageLabel);
