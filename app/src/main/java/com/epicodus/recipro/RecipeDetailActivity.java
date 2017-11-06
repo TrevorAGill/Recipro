@@ -25,7 +25,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mRecipes = Parcels.unwrap(getIntent().getParcelableExtra("recipes"));
-        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
+//        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
+          int startingPosition = getIntent().getIntExtra("position", 0);
+//        int startingPosition = 1;
 
         adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);
         mViewPager.setAdapter(adapterViewPager);
