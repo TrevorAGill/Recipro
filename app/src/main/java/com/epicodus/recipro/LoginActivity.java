@@ -3,7 +3,9 @@ package com.epicodus.recipro;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
+
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
     @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
     @Bind(R.id.passwordEditText) EditText mPasswordEditText;
@@ -37,6 +43,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        String savedEmail = Constants.EXTRA_KEY_EMAIL;
+        if(savedEmail.length() > 0 && savedEmail != "email"){
+            mEmailEditText.setText(savedEmail);
+        }
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         createAuthProgressDialog();
         mAuth = FirebaseAuth.getInstance();
@@ -86,12 +98,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             finish();
         }
         if (view == mPasswordLoginButton) {
+            String email = mEmailEditText.getText().toString().trim();
+            if(!(email).equals("")) {
+                addToSharedPreferences(email);
+            }
             loginWithPassword();
         }
     }
 
+    private void addToSharedPreferences(String email) {
+        mEditor.putString(Constants.EXTRA_KEY_EMAIL, email).apply();
+        System.out.println("EMAIL KEY= " + Constants.EXTRA_KEY_EMAIL);
+    }
+
     private void loginWithPassword() {
         String email = mEmailEditText.getText().toString().trim();
+        if(!(email).equals("")) {
+            addToSharedPreferences(email);
+        }
         String password = mPasswordEditText.getText().toString().trim();
         if (email.equals("")) {
             mEmailEditText.setError("Please enter your email");
