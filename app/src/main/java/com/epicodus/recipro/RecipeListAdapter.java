@@ -73,7 +73,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         private void createDetailFragment(int position) {
             RecipeDetailFragment detailFragment = RecipeDetailFragment.newInstance(mRecipes, position);
             FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.restaurantDetailContainer, detailFragment);
+            ft.replace(R.id.recipeDetailContainer, detailFragment);
             ft.commit();
         }
 
