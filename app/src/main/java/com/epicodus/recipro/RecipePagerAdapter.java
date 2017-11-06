@@ -21,7 +21,8 @@ public class RecipePagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return mRecipes.size();
+        return 5;
+//        return mRecipes.size();
     }
 
     @Override

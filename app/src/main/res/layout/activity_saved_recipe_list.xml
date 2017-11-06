@@ -9,9 +9,16 @@
     android:paddingTop="16dp"
     tools:context=".RecipeListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerView"/>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/recyclerView"/>-->
+
+    <fragment
+        android:id="@+id/fragmentRestaurantList"
+        android:name="com.epicodus.recipro.SavedRecipeListFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_saved_recipe_list" />
 
 </RelativeLayout>

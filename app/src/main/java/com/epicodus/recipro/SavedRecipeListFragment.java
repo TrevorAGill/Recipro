@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class SavedRecipeListFragment extends Fragment {
+public class SavedRecipeListFragment extends Fragment implements OnStartDragListener {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private DatabaseReference mRecipeReference;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
     public SavedRecipeListFragment() {
         // Required empty public constructor
@@ -45,25 +47,39 @@ public class SavedRecipeListFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Recipe, FirebaseRecipeViewHolder>
-                (Recipe.class, R.layout.recipe_list_item, FirebaseRecipeViewHolder.class, mRecipeReference) {
+        Query query = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_CHILD_RECIPES)
+                .child(uid)
+                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
 
+        mFirebaseAdapter = new FirebaseRecipeListAdapter(Recipe.class, R.layout.recipe_list_item_drag, FirebaseRecipeViewHolder.class, query, this, getActivity());
 
-            @Override
-            protected void populateViewHolder(FirebaseRecipeViewHolder viewHolder, Recipe model, int position) {
-                viewHolder.bindRecipe(model);
-            }
-        };
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mFirebaseAdapter);
 
+        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                mFirebaseAdapter.notifyDataSetChanged();
+            }
+        });
 
+//        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
+//        mItemTouchHelper = new ItemTouchHelper(callback);
+//        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mFirebaseAdapter.cleanup();
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
     }
 }
