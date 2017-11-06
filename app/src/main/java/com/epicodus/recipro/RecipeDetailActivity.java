@@ -26,7 +26,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         mRecipes = Parcels.unwrap(getIntent().getParcelableExtra("recipes"));
 //        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
-          int startingPosition = getIntent().getIntExtra("position", 0);
+          int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 //        int startingPosition = 1;
 
         adapterViewPager = new RecipePagerAdapter(getSupportFragmentManager(), mRecipes);

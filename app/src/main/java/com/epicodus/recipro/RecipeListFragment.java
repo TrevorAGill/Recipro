@@ -1,6 +1,7 @@
 package com.epicodus.recipro;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class RecipeListFragment extends Fragment {
     String[] excludedIngredients;
     String course = "";
     String cuisine = "";
+    private OnRecipeSelectedListener mOnRecipeSelectedListener;
 
     public static final String TAG = RecipeListActivity.class.getSimpleName();
     public ArrayList<Recipe> recipes = new ArrayList<>();
@@ -48,6 +50,15 @@ public class RecipeListFragment extends Fragment {
         getRecipes(time,allowedIngredients,excludedIngredients,course,cuisine);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnRecipeSelectedListener = (OnRecipeSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + e.getMessage());
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +101,7 @@ public class RecipeListFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter = new RecipeListAdapter(getActivity(), recipes);
+                        mAdapter = new RecipeListAdapter(getActivity(), recipes, mOnRecipeSelectedListener);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                         mRecyclerView.setLayoutManager(layoutManager);

@@ -25,17 +25,12 @@ import butterknife.ButterKnife;
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
     public ArrayList<Recipe> mRecipes = new ArrayList<>();
     private Context mContext;
+    private OnRecipeSelectedListener mOnRecipeSelectedListener;
 
-    public RecipeListAdapter(Context context, ArrayList<Recipe> recipes) {
+    public RecipeListAdapter(Context context, ArrayList<Recipe> recipes, OnRecipeSelectedListener recipeSelectedListener) {
         mContext = context;
         mRecipes = recipes;
-    }
-
-    @Override
-    public RecipeListAdapter.RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent, false);
-        RecipeViewHolder viewHolder = new RecipeViewHolder(view);
-        return viewHolder;
+        mOnRecipeSelectedListener = recipeSelectedListener;
     }
 
     @Override
@@ -44,30 +39,42 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     @Override
+    public RecipeListAdapter.RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent, false);
+        RecipeViewHolder viewHolder = new RecipeViewHolder(view, mRecipes, mOnRecipeSelectedListener);
+        return viewHolder;
+    }
+
+    @Override
     public int getItemCount() {
         return mRecipes.size();
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.recipeImageView)
-        ImageView mRecipeImageView;
-        @Bind(R.id.recipeNameTextView)
-        TextView mNameTextView;
-        private int mOrientation;
+        @Bind(R.id.recipeImageView) ImageView mRecipeImageView;
+        @Bind(R.id.recipeNameTextView) TextView mNameTextView;
 
+        private int mOrientation;
         private Context mContext;
 
-        public RecipeViewHolder(View itemView) {
+        private ArrayList<Recipe> mRecipes = new ArrayList<>();
+        private OnRecipeSelectedListener mRecipeSelectedListener;
+
+        public RecipeViewHolder(View itemView, ArrayList<Recipe> recipes, OnRecipeSelectedListener recipeSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
             mContext = itemView.getContext();
-            itemView.setOnClickListener(this);
-
+            mRecipes = recipes;
+            mRecipeSelectedListener = recipeSelectedListener;
             mOrientation = itemView.getResources().getConfiguration().orientation;
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
             }
+
+            itemView.setOnClickListener(this);
+
+
         }
 
         private void createDetailFragment(int position) {
@@ -86,6 +93,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+            mRecipeSelectedListener.onRecipeSelected(itemPosition, mRecipes);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
