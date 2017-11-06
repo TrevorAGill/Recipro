@@ -78,7 +78,12 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mSource = getArguments().getString(Constants.KEY_SOURCE);
         setHasOptionsMenu(true);
 
-        getRecipe(mRecipe.getId(), mRecipe);
+        if (mSource.equals(Constants.SOURCE_SAVED)) {
+            System.out.println("from saved");
+        } else {
+            getRecipe(mRecipe.getId(), mRecipe);
+        }
+
     }
 
     @Override
