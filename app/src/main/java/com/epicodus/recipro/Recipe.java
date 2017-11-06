@@ -31,6 +31,7 @@ public class Recipe {
         this.course = course;
         this.cuisine = cuisine;
         this.index = "not_specified";
+        this.source = "http://www.google.com";
     }
 
     public Recipe(String name, ArrayList<String> ingredients, String time, String course, String cuisine, String smallImageURL) {
@@ -41,6 +42,7 @@ public class Recipe {
         this.cuisine = cuisine;
         this.smallImageURL = smallImageURL;
         this.index = "not_specified";
+        this.source = "http://www.google.com";
     }
 
 //    public Recipe(String id, String name, ArrayList<String> ingredients, String time, String course, String cuisine) {

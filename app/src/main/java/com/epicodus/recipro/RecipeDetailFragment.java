@@ -72,6 +72,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         mRecipes = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_RECIPES));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mRecipe = mRecipes.get(mPosition);
+
         getRecipe(mRecipe.getId(), mRecipe);
     }
 
@@ -129,6 +130,8 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 ArrayList<Object> details = yummlyService.processResults2(response);
+                System.out.println("Details= " + details);
+                System.out.println("Details[0] = " + details.get(0));
                 String sourceURL = (String) details.get(0);
                 String imageURL = (String) details.get(1);
                 ingredients = (ArrayList<String>) details.get(2);

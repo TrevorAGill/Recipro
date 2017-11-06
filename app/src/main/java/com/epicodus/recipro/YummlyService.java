@@ -122,7 +122,7 @@ public class YummlyService {
                         String jsonData = response.body().string();
                         JSONObject recipeJSON = new JSONObject(jsonData);
 
-                        sourceURL = recipeJSON.getJSONObject("source").get("sourceRecipeUrl").toString();
+                        sourceURL = recipeJSON.getJSONObject("source").optString("sourceRecipeUrl","http://www.google.com");
                         imageURL = recipeJSON.getJSONArray("images").getJSONObject(0).get("hostedLargeUrl").toString();
                         ArrayList<String> ingredients = new ArrayList<String>();
                         JSONArray ingredientsRaw = recipeJSON.getJSONArray("ingredientLines");
