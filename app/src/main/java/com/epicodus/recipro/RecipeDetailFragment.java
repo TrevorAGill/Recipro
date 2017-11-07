@@ -197,8 +197,9 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
                 recipe.setLargeImageURL(imageURL);
                 recipe.setIngredients(ingredients);
 
-                adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
-                displayIngredients(adapter);
+                //THIS SHOWS THE INGREDIENTS IN A LISTVIEW (DOESN'T WORK WHEN SWITCHING TO LANDSCAPE)
+//                adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, ingredients);
+//                displayIngredients(adapter);
 
             }
         });
